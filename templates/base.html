@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'includes/head.html' %}
+
+    {% block meta %}
+    {% endblock %}
+
+    {% block styles %}
+    {% endblock %}
+</head>
+
+<body>
+
+    {% include 'includes/navbar.html' %}
+
+    <div class="container">
+
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show"
+                role="alert">
+                {{ message|safe }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block mansonary %}
+        {% endblock %}
+
+        <div class="mt-3 row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+
+                {% block body %}
+                {% endblock %}
+
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                {% include 'includes/sidebar.html' %}
+            </div>
+        </div>
+
+        {% if ads_footer %}
+        <div class="card text-center mb-3 p-3">
+            {{ ads_footer }}
+        </div>
+        {% endif %}
+
+        <div class="text-center my-6">
+            2021 &copy; All Rights Reserved.
+        </div>
+    </div>
+  
+    {% include 'includes/foot.html' %}
+    {% block scripts %}
+    {% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+{% extends 'users/base.html' %}
+
+{% block meta %}
+{% endblock %}
+
+{% block styles %}
+{% endblock %}
+
+{% block body %}
+<div class="card">
+
+  <div class="card-header bg-white border-bottom-0 py-4">
+    <h4 class="mb-0">All Posts</h4>
+
+    <div class="mt-3 accordion" id="filterPosts">
+      <div class="accordion-item">
+
+        <h2 class="accordion-header" id="filterPostArea">
+          <button class="accordion-button {% if request.GET.term or request.GET.category or request.GET.tag or request.GET.status %}esc{% else %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#filterPostForm" aria-expanded="true" aria-controls="filterPostForm">
+            Filter Posts
+          </button>
+        </h2>
+
+        <div id="filterPostForm" class="accordion-collapse collapse {% if request.GET.term or request.GET.category or request.GET.tag or request.GET.status %}show{% endif %}" aria-labelledby="filterPostArea" data-bs-parent="#filterPosts">
+          <div class="accordion-body">
+            <form action="{% url 'user_all_posts' %}" method="GET" class="row gx-3 gy-2 align-items-center">
+
+              {% for field in search_form %}
+              <div class="col-sm-3">
+                {{ field.label_tag }}
+                {{ field }}
+              </div>
+              {% endfor %}
+
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Filter</button>
+                <a class="mx-2" href="{% url 'user_all_posts' %}">Clear Filters</a>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  {% include 'users/includes/post-table.html' %}
+
+  <div class="card-footer bg-white text-center">
+    {% include 'includes/pagination.html' %}
+  </div>
+
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+    document.getElementById("id_status").setAttribute("class", "form-check");
+</script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% load static %}
+{% load thumbnail %}
+
+<div class="table-responsive">
+    <table class="table text-nowrap mb-0">
+
+        <thead class="table-light">
+            <tr>
+                <th>Post Title</th>
+                <th>Views</th>
+                <th>Comments</th>
+                <th>Last Modified</th>
+                <th>Posted On</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for post in post_list %}
+            <tr>
+                <td class="align-middle">
+                    <div class="d-flex align-items-center">
+                        {% if post.thumbnail %}
+                            {% thumbnail post.thumbnail "40x40" crop="center" as img %}
+                                <img src="{{ img.url }}" class="rounded-1 border">
+                            {% endthumbnail %}
+                        {% else %}
+                            <img src="{% static 'images/blank_post_sm.png' %}" class="rounded-1 border">
+                        {% endif %}
+                        <div class="ms-3 lh-1">
+                            <h5 class="fw-bold mb-1"><a href="{% url 'user_edit_post' post.id %}"
+                                    class="text-inherit">{{ post.title|truncatewords:4 }}</a></h5>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    {{ post.views }}
+                </td>
+                <td class="align-middle">
+                    {{ post.comment_set.all.count }}
+                </td>
+                <td class="align-middle">
+                    {{ post.modified_date }}
+                </td>
+                <td class="align-middle">
+                    {{ post.created_date }}
+                </td>
+                <td class="align-middle">
+                    {% if post.is_published %}
+                        <a href="{{ post.get_absolute_url }}">View Post</a>
+                    {% else %}
+                        <span class="text-danger">Draft</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>

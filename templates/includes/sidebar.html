@@ -1,0 +1,87 @@
+{% load thumbnail %}
+{% load static %}
+
+<div class="card mb-3 p-3">
+    <p class="text-dark fs-4 fw-bold">Connect with us</p>
+    <div class="row g-2 text-center">
+        <div class="d-grid col-4">
+            <a href="#" class="btn btn-primary">
+                <i data-feather="facebook"></i>
+            </a>
+        </div>
+        <div class="d-grid col-4">
+            <a href="#" class="btn btn-info text-white">
+                <i data-feather="twitter"></i>
+            </a>
+        </div>
+        <div class="d-grid col-4">
+            <a href="#" class="btn btn-danger">
+                <i data-feather="youtube"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% if ads_side1 %}
+<div class="card text-center mb-3 p-3">
+    {{ ads_side1 }}
+</div>
+{% endif %}
+
+
+<div class="card mb-3 p-3">
+    <p class="text-dark fs-4 fw-bold">Popular articles</p>
+
+    {% for post in popular_posts %}
+    <div class="d-flex mb-2 align-items-center">
+        {% if post.thumbnail %}
+            {% thumbnail post.thumbnail "40x40" crop="center" as img %}
+                <img src="{{ img.url }}" class="rounded-1 border">
+            {% endthumbnail %}
+        {% else %}
+            <img src="{% static 'images/blank_post_sm.png' %}" class="rounded-1 border">
+        {% endif %}
+        <div class="ms-3 lh-1">
+            <h5 class="fw-bold mb-1"><a href="{{ post.get_absolute_url }}"
+                    class="text-inherit">{{ post.title|truncatewords:8 }}</a></h5>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+{% if ads_side2 %}
+<div class="card text-center mb-3 p-3">
+    {{ ads_side2 }}
+</div>
+{% endif %}
+
+
+<div class="card mb-3 p-3">
+    <p class="text-dark fs-4 fw-bold">Recent articles:</p>
+
+    {% for post in recent_posts %}
+    <div class="d-flex mb-2 align-items-center">
+        {% if post.thumbnail %}
+            {% thumbnail post.thumbnail "40x40" crop="center" as img %}
+                <img src="{{ img.url }}" class="rounded-1 border">
+            {% endthumbnail %}
+        {% else %}
+            <img src="{% static 'images/blank_post_sm.png' %}" class="rounded-1 border">
+        {% endif %}
+        <div class="ms-3 lh-1">
+            <h5 class="fw-bold mb-1"><a href="{{ post.get_absolute_url }}"
+                    class="text-inherit">{{ post.title|truncatewords:8 }}</a></h5>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+{% if ads_side3 %}
+<div class="card text-center mb-3 p-3">
+    {{ ads_side3 }}
+</div>
+{% endif %}

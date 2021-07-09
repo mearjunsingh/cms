@@ -1,0 +1,8 @@
+asgiref==3.4.1
+Django==3.2.5
+django-ckeditor==6.1.0
+django-js-asset==1.2.2
+Pillow==8.3.0
+pytz==2021.1
+sorl-thumbnail==12.7.0
+sqlparse==0.4.1

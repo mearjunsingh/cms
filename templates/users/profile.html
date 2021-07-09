@@ -1,0 +1,70 @@
+{% extends 'users/base.html' %}
+
+{% block meta %}
+{% endblock %}
+
+{% block styles %}
+{% endblock %}
+
+{% block body %}
+
+<div class="row mb-8">
+
+  <div class="col-xl-3 col-lg-4 col-md-12 col-12">
+    <div class="mb-4 mb-lg-0">
+      <h4 class="mb-1 text-white">General Setting</h4>
+      <p class="mb-0 fs-5 text-light">Profile configuration settings </p>
+    </div>
+  </div>
+
+  <div class="col-xl-9 col-lg-8 col-md-12 col-12">
+    <div class="card">
+      <div class="card-body">
+        
+          <div class="mb-6">
+            <h4 class="mb-1">Basic information</h4>
+          </div>
+
+          <form method="POST" enctype="multipart/form-data" novalidate>
+            {% include 'includes/form.html' %}
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-xl-3 col-lg-4 col-md-12 col-12">
+    <div class="mb-4 mb-lg-0">
+      <h4 class="mb-1">Delete Account</h4>
+      <p class="mb-0 fs-5 text-muted">Permanently delete all your data.</p>
+    </div>
+  </div>
+
+  <div class="col-xl-9 col-lg-8 col-md-12 col-12">
+    <div class="card mb-6">
+      <div class="card-body">
+
+        <div class="mb-6">
+          <h4 class="mb-1">Danger Zone </h4>
+        </div>
+          
+          <p>Delete all posts and comments along with your profile. Also your username will become available to anyone.</p>
+          <a href="{% url 'user_delete_profile' %}" class="btn btn-danger">Delete Account</a>
+          <p class="small mb-0 mt-3">Or if you faced any problem, feel free to <a href="#">conntact</a> admin panel.
+          </p>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% load static %}
+{% load thumbnail %}
+
+{% for post in post_list %}
+
+<div class="mx-2">
+  <div class="pt-2 row">
+
+    <div class="col-md-4">
+      <a href="{{ post.get_absolute_url }}">
+        {% if featured_post.thumbnail %}
+          {% thumbnail featured_post.thumbnail "600x500" crop="center" as img %}
+            <img src="{{ img.url }}" class="img-fluid rounded-2">
+          {% endthumbnail %}
+        {% else %}
+         <img src="{% static 'images/blank_post_fslot.png' %}" class="card-img">
+        {% endif %}
+      </a>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card-body">
+        <h3 class="card-title"><a class="text-dark" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+        <p class="card-text">{{ post.excerpt }}</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endfor %}

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% load humanize %}
+
+{% block meta %}
+{% endblock %}
+
+{% block styles %}
+{% endblock %}
+
+{% block mansonary %}
+{% endblock %}
+
+{% block body %}
+
+{% if ads_header %}
+<div class="card text-center mb-3 p-3">
+    {{ ads_header }}
+</div>
+{% endif %}
+
+<div class="card mb-3">
+<div class="text-center card-header bg-white">
+    <p class="fs-4">
+        {% for category in post.categories.all %}
+        <a href="{{ category.get_absolute_url }}">
+            <span class="badge bg-primary">{{ category }}</span>
+        </a>
+        {% endfor %}
+    </p>
+    <h1 class="fw-bold">{{ post.title }}</h1>
+    <p class="mt-3">
+        <small class="mx-2 fs-5"><i data-feather="clock"></i> {{ post.created_date|naturaltime }}</small>
+        <a class="text-muted" href="{{ post.author.get_absolute_url }}"><small class="mx-2 fs-5"><i data-feather="user"></i> {{ post.author.display_name }}</small></a>
+        <small class="mx-2 fs-5"><i data-feather="eye"></i> {{ post.views }}</small>
+    </p>
+    <p class="pt-3">
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
+            class="btn btn-sm btn-primary"><i data-feather="facebook"></i><span class="d-none d-md-inline d-lg-inline"> Share on
+                Facebook</span></a>
+        <a href="https://twitter.com/intent/tweet?text={{ post.title }}%0ARead%20Here%3A%20{{ request.build_absolute_uri }}"
+            class="btn btn-sm btn-info text-white"><i data-feather="twitter"></i><span class="d-none d-md-inline d-lg-inline"> Tweet on
+                Twitter</span></a>
+        <a href="mailto:?subject={{ post.title }}&body={{ post.meta }}%0ARead%20Here%3A%20{{ request.build_absolute_uri }}"
+            class="btn btn-sm btn-danger"><i data-feather="mail"></i><span class="d-none d-md-inline d-lg-inline"> Email</span></a>
+    </p>
+</div>
+
+<div class="card-body">
+    {% if post.thumbnail %}
+        <div class="text-center mb-3">
+            {% thumbnail post.thumbnail "800x460" crop="center" as img %}
+                <img src="{{ img.url }}" class="img-fluid rounded-2 border">
+            {% endthumbnail %}
+        </div>
+    {% endif %}
+
+    {% if ads_belowThumbnail %}
+    <div class="mb-3 text-center p-3">
+        {{ ads_belowThumbnail }}
+    </div>
+    {% endif %}
+
+    <div style="text-align: justify;">
+        <p class="mb-3 lead text-center"><strong>{{ post.excerpt }}</strong></p>
+        <p class="mb-3 lead">{{ post.content|safe }}</p>
+        <p class="mb-3 fs-4">
+            {% for tag in post.tags.all %}
+            <a href="{{ tag.get_absolute_url }}">
+                <span class="badge rounded-pill bg-secondary">{{ tag }}</span>
+            </a>
+            {% endfor %}
+        </p>
+
+        {% if ads_belowPost %}
+        <div class="mb-3 text-center p-3">
+            {{ ads_belowPost }}
+        </div>
+        {% endif %}
+
+        <p class="my-3 text-center">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
+            class="btn btn-sm btn-primary"><i data-feather="facebook"></i><span class="d-none d-md-inline d-lg-inline"> Share on
+                Facebook</span></a>
+        <a href="https://twitter.com/intent/tweet?text={{ post.title }}%0ARead%20Here%3A%20{{ request.build_absolute_uri }}"
+            class="btn btn-sm btn-info text-white"><i data-feather="twitter"></i><span class="d-none d-md-inline d-lg-inline"> Tweet on
+                Twitter</span></a>
+        <a href="mailto:?subject={{ post.title }}&body={{ post.meta }}%0ARead%20Here%3A%20{{ request.build_absolute_uri }}"
+            class="btn btn-sm btn-danger"><i data-feather="mail"></i><span class="d-none d-md-inline d-lg-inline"> Email</span></a>
+        </p>
+    </div>
+</div>
+
+<div class="card-footer align-items-center bg-white d-flex">
+    <div class="mt-2 ms-5 avatar avatar-xl">
+        <a href="{{ post.author.get_absolute_url }}">
+        {% if post.author.profile_photo %}
+            {% thumbnail post.author.profile_photo "400x400" crop="center" as img %}
+                <img src="{{ img.url }}" class="rounded-circle">
+            {% endthumbnail %}
+        {% else %}
+            <img src="{% static 'images/blank_user_md.png' %}" class="img-fluid rounded-circle">
+        {% endif %}
+        </a>
+    </div>
+    <p class="mx-3 mt-2">
+        <a href="{{ post.author.get_absolute_url }}"><span class="h4 fw-bold">{{ post.author.display_name }}</span></a><br>
+        {% if post.author.bio %}{{ post.author.bio }}<br>{% endif %}
+        {% if post.author.url %}<a href="{{ post.author.url }}">Learn More...</a>{% endif %}
+    </p>
+</div>
+</div>
+
+<div class="card mb-3 p-3">
+
+
+    {% if ads_belowRelated %}
+    <div class="mb-3 text-center p-3">
+        {{ ads_belowRelated }}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

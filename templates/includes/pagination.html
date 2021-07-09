@@ -1,0 +1,58 @@
+{% if page_obj.paginator.num_pages > 1 %}
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+
+        {% if page_obj.number != 1 %}
+        <li class="page-item">
+            <a href="{{ base_url }}page=1" class="page-link">First</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">First</a>
+        </li>
+        {% endif %}
+
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a href="{{ base_url }}page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Previous</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
+        </li>
+        {% endif %}
+
+        {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link">{{ i }}</a>
+            </li>
+            {% elif page_obj.number > i|add:"-3" and page_obj.number < i|add:"+3"%} <li class="page-item">
+                <a href="{{ base_url }}page={{ i }}" class="page-link">{{ i }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a href="{{ base_url }}page={{ page_obj.next_page_number }}" class="page-link">Next &raquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&raquo;</a>
+        </li>
+        {% endif %}
+
+        {% if page_obj.paginator.num_pages != page_obj.number %}
+        <li class="page-item">
+            <a href="{{ base_url }}page={{ page_obj.paginator.num_pages }}" class="page-link">Last</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Last</a>
+        </li>
+        {% endif %}
+
+    </ul>
+</nav>
+{% endif %}

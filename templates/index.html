@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% load humanize %}
+
+{% block meta %}
+{% endblock %}
+
+{% block styles %}
+{% endblock %}
+
+{% block mansonary %}
+
+{% if ads_homepage %}
+<div class="card text-center mb-3 p-3">
+    {{ ads_homepage }}
+</div>
+{% endif %}
+
+<div class="card p-3">
+<div class="row g-2">
+
+    {% for featured_post in featured_posts %}
+
+        {% if forloop.counter == 1 %}
+            <div class="col-lg-5">
+        {% elif forloop.counter == 2%}
+            <div class="col-lg-4">
+        {% else %}
+            <div class="col-lg-3">
+        {% endif%}
+
+        <a href="{% url 'post_detail' featured_post.slug %}">
+            <div class="card hover-shadow">
+                {% if forloop.counter == 1 %}
+                    {% if featured_post.thumbnail %}
+                        {% thumbnail featured_post.thumbnail "420x350" crop="center" as img %}
+                            <img src="{{ img.url }}" class="rounded-2 border">
+                        {% endthumbnail %}
+                    {% else %}
+                        <img src="{% static 'images/blank_post_fslot.png' %}" class="card-img">
+                    {% endif %}
+                {% elif forloop.counter == 2%}
+                    {% if featured_post.thumbnail %}
+                        {% thumbnail featured_post.thumbnail "330x350" crop="center" as img %}
+                            <img src="{{ img.url }}" class="rounded-2 border">
+                        {% endthumbnail %}
+                    {% else %}
+                        <img src="{% static 'images/blank_post_sslot.png' %}" class="card-img">
+                    {% endif %}
+                {% else %}
+                    {% if featured_post.thumbnail %}
+                        {% thumbnail featured_post.thumbnail "250x350" crop="center" as img %}
+                            <img src="{{ img.url }}" class="rounded-2 border">
+                        {% endthumbnail %}
+                    {% else %}
+                        <img src="{% static 'images/blank_post_tslot.png' %}" class="card-img">
+                    {% endif %}
+                {% endif %}
+
+                <div class="card-img-overlay d-flex flex-column">
+                    <div class="mt-auto">
+                        <h2 class="text-white fw-bold card-title" style="text-shadow: 0px 0px 10px #000;">{{ featured_post.title|truncatewords:6 }}</h2>
+                        <p class="text-white card-text"  style="text-shadow: 1px 1px 3px #000;">
+                            <small class="fs-5"><i data-feather="clock"></i> {{ featured_post.created_date|naturaltime }}</small> <br>
+                            <small class="fs-5"><i data-feather="user"></i> {{ featured_post.author.display_name }}</small> <br>
+                            <small class="fs-5"><i data-feather="eye"></i> {{ featured_post.views }} views</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+</div>
+
+{% endblock %}
+
+
+{% block body%}
+
+{% if ads_header %}
+<div class="card text-center mb-3 p-3">
+    {{ ads_header }}
+</div>
+{% endif %}
+
+<div class="card mb-3 p-3">
+  <p class="text-dark lead fw-bold">Popular articles:</p>
+  {% for post in popular_posts %}
+    <div class="d-flex mb-2">
+        {% if post.thumbnail %}
+            {% thumbnail post.thumbnail "100x100" crop="center" as img %}
+                <img src="{{ img.url }}" class="rounded-1 border">
+            {% endthumbnail %}
+        {% else %}
+            <img src="{% static 'images/blank_post_sm.png' %}" class="rounded-1 border">
+        {% endif %}
+        <div class="ms-3 lh-1">
+            <h5 class="fw-bold fs-3 mb-1"><a href="{{ post.get_absolute_url }}"
+                    class="text-inherit">{{ post.title|truncatewords:8 }}</a></h5>
+                    <p>{{ post.excerpt }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

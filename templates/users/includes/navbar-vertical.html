@@ -1,0 +1,64 @@
+{% load static %}
+
+<nav class="navbar-vertical navbar">
+    <div class="nav-scroller">
+        
+        <a class="navbar-brand" href="{% url 'user_dashboard' %}">
+            <img src="{% static 'images/logo_md.png' %}">
+        </a>
+
+        <ul class="navbar-nav flex-column" id="sideNavbar">
+
+            <li class="nav-item">
+                <a class="nav-link {% if current_page == 'dashboard' %}active{% endif%}" href="{% url 'user_dashboard' %}">
+                    <i data-feather="home" class="nav-icon icon-xs me-2"></i> Dashboard
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <span class="nav-link has-arrow {% if current_page != 'posts' %} collapsed {% endif%}" style="cursor: pointer;"
+                    data-bs-toggle="collapse" data-bs-target="#postMenu" aria-expanded="false" aria-controls="postMenu">
+                    <i data-feather="book-open" class="nav-icon icon-xs me-2"></i> Posts
+                </span>
+
+                <div id="postMenu" class="collapse {% if current_page == 'posts' %} show {% endif%}"
+                    data-bs-parent="#sideNavbar">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link {% if current_sub_page == 'new_post' %}active{% endif%}" href="{% url 'user_new_post' %}">New Post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if current_sub_page == 'all_posts' %}active{% endif%}" href="{% url 'user_all_posts' %}">All Posts</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {% if current_page == 'comments' %}active{% endif%}" href="{% url 'user_all_comments' %}">
+                    <i data-feather="message-circle" class="nav-icon icon-xs me-2"></i> Comments
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {% if current_page == 'profile' %}active{% endif%}" href="{% url 'user_edit_profile' %}">
+                    <i data-feather="user" class="nav-icon icon-xs me-2"></i> Profile
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {% if current_page == 'password' %}active{% endif%}" href="{% url 'user_change_password' %}">
+                    <i data-feather="lock" class="nav-icon icon-xs me-2"></i> Change Password
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'user_logout' %}">
+                    <i data-feather="log-out" class="nav-icon icon-xs me-2"></i> Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'includes/head.html' %}
+   
+    {% block meta %}
+    {% endblock %}
+
+    {% block styles %}
+    {% endblock %}
+</head>
+
+<body>
+    <div id="db-wrapper">
+
+        {% include 'users/includes/navbar-vertical.html' %}
+
+        <div id="page-content">
+            {% include 'users/includes/header.html' %}
+            <div class="bg-primary pt-10 pb-21"></div>
+            <div class="container-fluid mt-n22 px-6">
+
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                        {{ message|safe }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+
+                {% block body %}
+                {% endblock %}
+
+                <div class="text-center my-6">
+                    2021 &copy; All Rights Reserved.
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    {% include 'includes/foot.html' %}
+    {% block scripts %}
+    {% endblock %}
+</body>
+
+</html>

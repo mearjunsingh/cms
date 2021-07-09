@@ -1,0 +1,114 @@
+{% extends 'users/base.html' %}
+{% load thumbnail %}
+
+{% block meta %}
+{% endblock %}
+
+{% block styles %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+
+      <div class="col-lg-12 col-md-12 col-12">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="mb-2 mb-lg-0">
+              <h3 class="mb-0 fw-bold text-white">
+                Welcome {{ request.user.display_name }}
+              </h3>
+            </div>
+            <div>
+              <a href="{% url 'user_new_post' %}" class="btn btn-white">New Post</a>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
+        <div class="card rounded-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h4 class="mb-0">Posts</h4>
+              <div class="icon-shape icon-md bg-light-primary text-primary rounded-1">
+                <i data-feather="book-open"></i>
+              </div>
+            </div>
+            <div>
+              <h1 class="fw-bold">{{ total_posts_count }}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
+        <div class="card rounded-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h4 class="mb-0">Views</h4>
+              <div class="icon-shape icon-md bg-light-primary text-primary rounded-1">
+                <i data-feather="eye"></i>
+              </div>
+            </div>
+            <div>
+              <h1 class="fw-bold">{{ total_views_count }}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
+        <div class="card rounded-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h4 class="mb-0">Comments</h4>
+              <div class="icon-shape icon-md bg-light-primary text-primary rounded-1">
+                <i data-feather="message-circle"></i>
+              </div>
+            </div>
+            <div>
+              <h1 class="fw-bold">{{ total_comments_count }}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
+        <div class="card rounded-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h4 class="mb-0">Rank</h4>
+              <div class="icon-shape icon-md bg-light-primary text-primary rounded-1">
+                <i data-feather="bar-chart"></i>
+              </div>
+            </div>
+            <div>
+              <h1 class="fw-bold">{{ rank }}%</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row mt-6">
+      <div class="col-md-12 col-12">
+        <div class="card">
+
+          <div class="card-header bg-white border-bottom-0 py-4">
+            <h4 class="mb-0">Top Viewed Posts</h4>
+          </div>
+        
+          {% include 'users/includes/post-table.html' %}
+        
+          <div class="card-footer bg-white text-center">
+            <a href="{% url 'user_all_posts' %}">View All Posts</a>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
