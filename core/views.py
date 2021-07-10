@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from posts.models import Post
+from .models import Page
 
 
 class HomePage(TemplateView):
@@ -11,3 +12,12 @@ class HomePage(TemplateView):
         context['featured_posts'] = Post.objects.all()[:3]
         return context
 
+
+class StaticPage(DetailView):
+    template_name = 'page.html'
+    queryset = Page.objects.filter(is_published=True)
+
+
+# class ContactPage(Form):
+#     template_name = 'page.html'
+#     queryset = Page.objects.filter(is_published=True)

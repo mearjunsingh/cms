@@ -3,16 +3,16 @@
 <nav class="card rounded-0 border-bottom py-2">
     <div class="container d-flex justify-content-between"> 
         <div>
-            <a class="text-dark mx-2" href="#">Home</a>
-            <a class="text-dark mx-2" href="#">About</a>
-            <a class="text-dark mx-2" href="#">Privacy</a>
+            <a class="text-dark text-primary-hover mx-2" href="#">Home</a>
+            <a class="text-dark text-primary-hover mx-2" href="#">About</a>
+            <a class="text-dark text-primary-hover mx-2" href="#">Privacy</a>
         </div> 
         <div>
             {% if request.user.is_authenticated %}
-                <a class="text-dark mx-2" href="{% url 'user_dashboard' %}">Dashboard</a>
+                <a class="text-dark text-primary-hover fw-bold mx-2" href="{% url 'user_dashboard' %}">Dashboard</a>
             {% else %}
-                <a class="text-dark mx-2" href="{% url 'user_login' %}">Login</a>
-                <a class="text-dark mx-2" href="{% url 'user_register' %}">Register</a>
+                <a class="text-dark text-primary-hover mx-2" href="{% url 'user_login' %}">Login</a>
+                <a class="text-dark text-primary-hover fw-bold mx-2" href="{% url 'user_register' %}">Register</a>
             {% endif %}
         </div>           
   </div>
@@ -20,7 +20,7 @@
 
 <nav class="navbar card rounded-0 navbar-expand-lg sticky-top navbar-light">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'homepage' %}">{{ site_brand }}</a>
+      <a class="navbar-brand fs-3 fw-bold" href="{% url 'homepage' %}">Brand</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -31,15 +31,15 @@
 
           {% for menu_item in menu_items %}
             <li class="nav-item">
-                <a class="text-dark nav-link" href="{{ menu_item.get_absolute_url }}">{{ menu_item.get_text }}</a>
+                <a class="text-dark text-primary-hover fw-bold nav-link" href="{{ menu_item.get_absolute_url }}">{{ menu_item.get_text }}</a>
             </li>
-        {% endfor %}
+          {% endfor %}
 
         </ul>
 
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+        <form action="{% url 'browse_list' %}" method="GET" class="d-flex">
+          {{ search_form.search }}
+          <button class="btn btn-sm btn-primary" type="submit"><i data-feather="search"></i></button>
         </form>
 
       </div>

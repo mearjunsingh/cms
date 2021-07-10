@@ -12,7 +12,7 @@ class Post(models.Model):
     excerpt = models.CharField(_('Post Excerpt'), max_length=300)
     thumbnail = models.ImageField(_('Post Thumbnail'), upload_to=upload_image_path, blank=True)
     slug = models.SlugField(_('Post Slug'), unique=True)
-    content = RichTextUploadingField()
+    content = RichTextUploadingField(_('Post Content'))
     categories = models.ManyToManyField('Category', verbose_name=_('Categories'), blank=True)
     tags = models.ManyToManyField('Tag', verbose_name=_('Tags'), blank=True)
     views = models.IntegerField(_('Post Views'), default=0, editable=False)
@@ -64,11 +64,10 @@ class Tag(models.Model):
 
 
 class Comment(models.Model):
-    body = RichTextUploadingField(config_name='comment_editor')
+    body = RichTextUploadingField(_('Comment Body'), config_name='comment')
     is_approved = models.BooleanField(_('Is Approved'), default=False)
     created_date = models.DateTimeField(_('Comment Created On'), auto_now_add=True)
-    comment_parent = models.BigIntegerField(_('Comment Parent'), blank=True)
-    action_ip = models.CharField(_('Comment Posted IP'), max_length=20)
+    action_ip = models.CharField(_('Comment Posted IP'), max_length=20, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('User'))
     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name=_('Post'))
 

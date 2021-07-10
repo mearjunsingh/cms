@@ -1,36 +1,35 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% load humanize %}
 
-{% block site_title %}Contact Us | All Score Meter{% endblock %}
-{% block site_tags %}Sports, Cricket, Football, Sport News, Games, Nepal{% endblock %}
-{% block site_meta %}Contact All Score Meter team. ASM, a popular sports portal with live updates and latest news.{% endblock %}
-{% block site_author %}All Score Meter{% endblock %}
-
-{% block mansonary %}
-        <div class="page-title lb single-wrapper">
-            <div class="container">
-                <h3><i class="fa fa-envelope-open-o bg-orange"></i> Contact <span style="color: #FF6347;">ASM Team</span>
-            </div><!-- end container -->
-        </div><!-- end page-title -->
+{% block meta %}
 {% endblock %}
 
+{% block styles %}
+{% endblock %}
 
-{% block main %}
-    <form action="{% url 'contact_page' %}" method="POST" class="form-wrapper mx-5">
-        {% csrf_token %}
-        {% for field in form.visible_fields %}
-            <strong>{{ field.label_tag }}</strong>
-            {% if field.errors %}
-                <ul>
-                {% for error in field.errors %}
-                    <li style="color: #FF6347;">{{ error }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-            {{ field }}
-            {% if field.help_text %}
-                <br />{{ field.help_text }}
-            {% endif %}
-        {% endfor %}
-        <button style="cursor: pointer;" type="submit" class="btn btn-primary">Send <i class="fa fa-envelope-open-o"></i></button>
-    </form>                            
+{% block mansonary %}
+{% endblock %}
+
+{% block body %}
+
+<div class="card mb-3">
+    <div class="text-center card-header bg-white">
+        <h1 class="fw-bold">Contact Us</h1>
+    </div>
+
+    <div class="card-body">
+        <div style="text-align: justify;">
+            <p class="mb-3 lead">
+
+            </p>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
 {% endblock %}

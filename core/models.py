@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy
+from ckeditor_uploader.fields import RichTextUploadingField
 from posts.models import (
     Category,
     Tag
@@ -56,7 +58,7 @@ class Page(models.Model):
     excerpt = models.CharField(_('Page Excerpt'), max_length=300)
     thumbail = models.ImageField(_('Page Thumbnail'), upload_to=upload_image_path)
     slug = models.SlugField(_('Page Slug'), unique=True)
-    content = models.TextField(_('Page Content'))
+    content = RichTextUploadingField(_('Page Content'))
     is_published = models.BooleanField(_('Is Published'), default=True)
     modified_date = models.DateTimeField(_('Page Modified At'), auto_now=True)
     created_date = models.DateTimeField(_('Page Created At'), auto_now_add=True)
@@ -66,7 +68,7 @@ class Page(models.Model):
     
     @property
     def get_absolute_url(self):
-        return '#'
+        return reverse_lazy('static_page', args=[self.slug])
 
 
 class Ad(models.Model):

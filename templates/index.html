@@ -31,7 +31,7 @@
         {% endif%}
 
         <a href="{% url 'post_detail' featured_post.slug %}">
-            <div class="card">
+            <div class="card img-container">
                 {% if forloop.counter == 1 %}
                     {% if featured_post.thumbnail %}
                         {% thumbnail featured_post.thumbnail "420x350" crop="center" as img %}
@@ -61,13 +61,6 @@
                 <div class="card-img-overlay d-flex flex-column">
                     <div class="mt-auto">
                         <h2 class="text-white fw-bold card-title" style="text-shadow: 0px 0px 10px #000;">{{ featured_post.title|truncatewords:4 }}</h2>
-                        <p class="fs-4">
-                            {% for category in featured_post.categories.all %}
-                            <a href="{{ category.get_absolute_url }}">
-                                <span class="badge bg-primary">{{ category }}</span>
-                            </a>
-                            {% endfor %}
-                        </p>
                         <p class="text-white card-text"  style="text-shadow: 1px 1px 3px #000;">
                             <small class="fs-5"><i data-feather="clock"></i> {{ featured_post.created_date|naturaltime }}</small> <br>
                             <small class="fs-5"><i data-feather="user"></i> {{ featured_post.author.display_name }}</small> <br>

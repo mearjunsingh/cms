@@ -17,13 +17,13 @@
 
     <div class="col-md-4">
       <a href="{{ post.get_absolute_url }}">
-        <div class="position-relative">
+        <div class="position-relative img-container">
           {% if post.thumbnail %}
-          {% thumbnail post.thumbnail "640x360" crop="center" as img %}
-          <img src="{{ img.url }}" class="rounded img-fluid w-100 img-responsive">
-          {% endthumbnail %}
+            {% thumbnail post.thumbnail "640x360" crop="center" as img %}
+              <img src="{{ img.url }}" class="rounded img-fluid w-100 img-responsive">
+            {% endthumbnail %}
           {% else %}
-          <img src="{% static 'images/blank_post_md.png' %}" class="rounded img-fluid w-100 img-responsive">
+            <img src="{% static 'images/blank_post_md.png' %}" class="rounded img-fluid w-100 img-responsive">
           {% endif %}
         </div>
       </a>
@@ -32,7 +32,7 @@
     <div class="col-md-8">
 
       <div class="m-1">
-      <a class="fs-3 fw-bold text-dark " href="{{ post.get_absolute_url }}">
+      <a class="fs-3 fw-bold text-dark text-primary-hover" href="{{ post.get_absolute_url }}">
         {{ post.title|truncatewords:6 }}
       </a>
     </div>

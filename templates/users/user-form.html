@@ -54,7 +54,7 @@
                         <strong>Post: </strong> <a href="{{ comment.post.get_absolute_url }}">{{ comment.post.title }}</a>
                     </div>
                     <div class="mb-4">
-                        <strong>Comment: </strong> {{ comment.post.body|safe }}
+                        <strong>Comment: </strong> {{ comment.body|safe }}
                     </div>
                     <div class="mb-4">
                         <strong>Date: </strong> {{ comment.created_date }}

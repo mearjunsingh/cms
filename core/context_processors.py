@@ -1,15 +1,13 @@
 from posts.models import Post
 from .models import Menu, Ad
-from ..site_config import site_data
-
-
-def site_config(request):
-    return site_data
+from posts.forms import SearchForm
 
 
 def menu_items(request):
-    items = Menu.objects.all()
-    return {'menu_items' : items}
+    context = {}
+    context['menu_items'] = Menu.objects.all()
+    context['search_form'] = SearchForm(request.GET or None)
+    return context
 
 
 def ad_items(request):

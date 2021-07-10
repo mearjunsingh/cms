@@ -13,8 +13,22 @@
 {% endblock %}
 
 {% block body%}
+
+{% if ads_header %}
+<div class="card text-center mb-3 p-3">
+    {{ ads_header|safe }}
+</div>
+{% endif %}
+
   <div class="card mb-3 p-3">
-    <p class="text-dark lead fw-bold">{{ page_title }}</p>
+    <p class="text-dark lead fw-bold">All posts
+      {% if search_term %}
+        matching with: '{{ search_term }}'
+      {% endif %}
+      {% if list_term %}
+        under {{ list_type }}: '{{ list_term }}'
+      {% endif %}
+    </p>
     {% include 'includes/post_list.html' %}
     <div class="mt-4">
       {% include 'includes/pagination.html' %}
