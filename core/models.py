@@ -12,12 +12,14 @@ from .utils import upload_image_path
 class Menu(models.Model):
     text = models.CharField(_('Menu Text'), max_length=100, blank=True, help_text=_('Displayed in case of link menu'))
     link = models.CharField(_('Menu Link'), max_length=255, blank=True, null=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name=_('Category'), blank=True, null=True)
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, verbose_name=_('Tag'), blank=True, null=True)
-    page = models.ForeignKey('Page', on_delete=models.CASCADE, verbose_name=_('Page'), blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name=_('Category'), blank=True, null=True)
+    tag = models.ForeignKey(Tag, on_delete=models.DO_NOTHING, verbose_name=_('Tag'), blank=True, null=True)
+    page = models.ForeignKey('Page', on_delete=models.DO_NOTHING, verbose_name=_('Page'), blank=True, null=True)
 
     def __str__(self) -> str:
-        return self.text
+        if self.text:
+            return self.text
+        return 'Menu Item'
     
     @property
     def get_absolute_url(self):
@@ -31,6 +33,19 @@ class Menu(models.Model):
             return self.page.get_absolute_url
         else:
             return '#'
+    
+    @property
+    def get_text(self):
+        if self.text:
+            return self.text
+        elif self.category:
+            return self.category.display
+        elif self.tag:
+            return self.tag.display
+        elif self.page:
+            return self.page.title
+        else:
+            return 'Some Link'
     
     class Meta:
         verbose_name_plural = 'Menu Items'
@@ -56,26 +71,23 @@ class Page(models.Model):
 
 class Ad(models.Model):
     targets = (
-        ('test', 'test')
+        ('ads_side1', 'Sidebar Top'),
+        ('ads_side2', 'Sidebar Between'),
+        ('ads_side3', 'Sidebar Bottom'),
+        ('ads_header', 'Header'),
+        ('ads_footer', 'Footer'),
+        ('ads_homepage', 'Homepage'),
+        ('ads_belowThumbnail', 'Below Thumbnail'),
+        ('ads_belowPost', 'Below Post'),
+        ('ads_belowRelated', 'Below Related'),
+        ('ads_betweenPosts', 'Between Posts (Per 5)'),
+        ('ads_belowFirstSection', 'Below First Section (Homepage)'),
+        ('ads_belowSecondSection', 'Below Second Section (Homepage)')
     )
     title = models.CharField(_('Title'), max_length=100)
-    target = models.CharField(_('Ad Target'), max_length=10)
+    target = models.CharField(_('Ad Target'), max_length=50, unique=True, choices=targets)
     code = models.TextField(_('Ad Code'))
     is_active = models.BooleanField(_('Active'), default=True)
 
-    def __str__(self):
-        return self.title
-
-
-class Site(models.Model):
-    titles = (
-        ('test', 'test'),
-    )
-    title = models.CharField(_('Site Title'), max_length=150, choices=titles, unique=True)
-    excerpt = models.TextField(_('Site Excerpt'))
-    logo = models.ImageField(_('Site Logo'), upload_to=upload_image_path)
-    favico = models.ImageField(_('Site Favico'), upload_to=upload_image_path)
-    footer_text = models.CharField(_('Footer Text'), max_length=255)
-    
     def __str__(self):
         return self.title

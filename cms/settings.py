@@ -73,7 +73,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.menu_items',
                 'core.context_processors.ad_items',
-                'core.context_processors.sidebar_items'
+                'core.context_processors.sidebar_items',
+                'core.context_processors.site_config'
             ],
         },
     },
@@ -147,7 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 from django.urls import reverse_lazy
 AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = reverse_lazy('user_login')
-LOGOUT_REDIRECT_URL = '/' # reverse_lazy('homepage')
+LOGOUT_REDIRECT_URL = reverse_lazy('homepage')
 
 # Ckeditor configuration
 CKEDITOR_CONFIGS = {

@@ -13,7 +13,7 @@
 
 {% if ads_homepage %}
 <div class="card text-center mb-3 p-3">
-    {{ ads_homepage }}
+    {{ ads_homepage|safe }}
 </div>
 {% endif %}
 
@@ -31,7 +31,7 @@
         {% endif%}
 
         <a href="{% url 'post_detail' featured_post.slug %}">
-            <div class="card hover-shadow">
+            <div class="card">
                 {% if forloop.counter == 1 %}
                     {% if featured_post.thumbnail %}
                         {% thumbnail featured_post.thumbnail "420x350" crop="center" as img %}
@@ -60,7 +60,14 @@
 
                 <div class="card-img-overlay d-flex flex-column">
                     <div class="mt-auto">
-                        <h2 class="text-white fw-bold card-title" style="text-shadow: 0px 0px 10px #000;">{{ featured_post.title|truncatewords:6 }}</h2>
+                        <h2 class="text-white fw-bold card-title" style="text-shadow: 0px 0px 10px #000;">{{ featured_post.title|truncatewords:4 }}</h2>
+                        <p class="fs-4">
+                            {% for category in featured_post.categories.all %}
+                            <a href="{{ category.get_absolute_url }}">
+                                <span class="badge bg-primary">{{ category }}</span>
+                            </a>
+                            {% endfor %}
+                        </p>
                         <p class="text-white card-text"  style="text-shadow: 1px 1px 3px #000;">
                             <small class="fs-5"><i data-feather="clock"></i> {{ featured_post.created_date|naturaltime }}</small> <br>
                             <small class="fs-5"><i data-feather="user"></i> {{ featured_post.author.display_name }}</small> <br>
@@ -85,28 +92,35 @@
 
 {% if ads_header %}
 <div class="card text-center mb-3 p-3">
-    {{ ads_header }}
+    {{ ads_header|safe }}
 </div>
 {% endif %}
 
 <div class="card mb-3 p-3">
-  <p class="text-dark lead fw-bold">Popular articles:</p>
-  {% for post in popular_posts %}
-    <div class="d-flex mb-2">
-        {% if post.thumbnail %}
-            {% thumbnail post.thumbnail "100x100" crop="center" as img %}
-                <img src="{{ img.url }}" class="rounded-1 border">
-            {% endthumbnail %}
-        {% else %}
-            <img src="{% static 'images/blank_post_sm.png' %}" class="rounded-1 border">
-        {% endif %}
-        <div class="ms-3 lh-1">
-            <h5 class="fw-bold fs-3 mb-1"><a href="{{ post.get_absolute_url }}"
-                    class="text-inherit">{{ post.title|truncatewords:8 }}</a></h5>
-                    <p>{{ post.excerpt }}</p>
-        </div>
-    </div>
-    {% endfor %}
+    <p class="text-dark lead fw-bold">Recent in sports</p>
+    {% include 'includes/post_list.html' %}
+</div>
+
+{% if ads_belowFirstSection %}
+<div class="card text-center mb-3 p-3">
+    {{ ads_belowFirstSection|safe }}
+</div>
+{% endif %}
+
+<div class="card mb-3 p-3">
+    <p class="text-dark lead fw-bold">Recent in entertainment</p>
+    {% include 'includes/post_list.html' %}
+</div>
+
+{% if ads_belowSecondSection %}
+<div class="card text-center mb-3 p-3">
+    {{ ads_belowSecondSection|safe }}
+</div>
+{% endif %}
+
+<div class="card mb-3 p-3">
+    <p class="text-dark lead fw-bold">Recent in technology</p>
+    {% include 'includes/post_list.html' %}
 </div>
 
 {% endblock %}

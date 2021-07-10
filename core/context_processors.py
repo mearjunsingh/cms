@@ -1,5 +1,10 @@
-from .models import Menu
 from posts.models import Post
+from .models import Menu, Ad
+from ..site_config import site_data
+
+
+def site_config(request):
+    return site_data
 
 
 def menu_items(request):
@@ -8,18 +13,11 @@ def menu_items(request):
 
 
 def ad_items(request):
-    context = {
-        'ads_side1' : 'xa ni',
-        'ads_side2' : 'df',
-        'ads_side3' : 'dfdf',
-        'ads_header' : 'ddfd',
-        'ads_footer' : 'dfdfd',
-        'ads_homepage' : 'd',
-        'ads_belowThumbnail' : 'd',
-        'ads_belowPost' : 'd',
-        'ads_belowRelated' : 'd',
-    }
-    return context
+    ads = Ad.objects.filter(is_active=True)
+    data = {}
+    for ad in ads:
+        data[ad.target] = ad.code
+    return data
 
 
 def sidebar_items(request):

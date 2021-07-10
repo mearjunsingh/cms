@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
+from django.urls import reverse_lazy
 from core.utils import upload_image_path
 
 
@@ -55,6 +56,10 @@ class User(PermissionsMixin, AbstractBaseUser):
     def __str__(self):
         return self.username
 
+    @property
+    def get_absolute_url(self):
+        return reverse_lazy('author_list', args=[self.username])
+    
     @property
     def display_name(self):
         if self.first_name or self.last_name:

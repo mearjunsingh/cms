@@ -1,32 +1,62 @@
 {% load static %}
+{% load humanize %}
 {% load thumbnail %}
 
 {% for post in post_list %}
 
-<div class="mx-2">
-  <div class="pt-2 row">
+{% if forloop.counter == 6 %}
+  {% if ads_betweenPosts %}
+    <div class="my-3 text-center p-3">
+        {{ ads_betweenPosts|safe }}
+    </div>
+  {% endif %}
+{% endif %}
+
+<div class="card border p-2 mt-2">
+  <div class="row">
 
     <div class="col-md-4">
       <a href="{{ post.get_absolute_url }}">
-        {% if featured_post.thumbnail %}
-          {% thumbnail featured_post.thumbnail "600x500" crop="center" as img %}
-            <img src="{{ img.url }}" class="img-fluid rounded-2">
+        <div class="position-relative">
+          {% if post.thumbnail %}
+          {% thumbnail post.thumbnail "640x360" crop="center" as img %}
+          <img src="{{ img.url }}" class="rounded img-fluid w-100 img-responsive">
           {% endthumbnail %}
-        {% else %}
-         <img src="{% static 'images/blank_post_fslot.png' %}" class="card-img">
-        {% endif %}
+          {% else %}
+          <img src="{% static 'images/blank_post_md.png' %}" class="rounded img-fluid w-100 img-responsive">
+          {% endif %}
+        </div>
       </a>
     </div>
 
     <div class="col-md-8">
-      <div class="card-body">
-        <h3 class="card-title"><a class="text-dark" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-        <p class="card-text">{{ post.excerpt }}</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+
+      <div class="m-1">
+      <a class="fs-3 fw-bold text-dark " href="{{ post.get_absolute_url }}">
+        {{ post.title|truncatewords:6 }}
+      </a>
+    </div>
+
+      <p class="fs-5">
+        {% for category in post.categories.all %}
+        <a href="{{ category.get_absolute_url }}">
+          <span class="badge bg-primary">{{ category }}</span>
+        </a>
+        {% endfor %}
+      </p>
+
+      {{ post.excerpt|truncatewords:15 }}
+
+      <div class="mt-2">
+          <small class="mx-2 fs-5"><i data-feather="clock"></i> {{ post.created_date|naturaltime }}</small>
+          <a class="text-muted" href="{{ post.author.get_absolute_url }}">
+            <small class="mx-2 fs-5"><i data-feather="user"></i> {{ post.author.display_name }}</small>
+          </a>
+          <small class="mx-2 fs-5"><i data-feather="eye"></i> {{ post.views }}</small>
       </div>
+
     </div>
 
   </div>
 </div>
-
 {% endfor %}

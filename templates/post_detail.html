@@ -16,7 +16,7 @@
 
 {% if ads_header %}
 <div class="card text-center mb-3 p-3">
-    {{ ads_header }}
+    {{ ads_header|safe }}
 </div>
 {% endif %}
 
@@ -58,7 +58,7 @@
 
     {% if ads_belowThumbnail %}
     <div class="mb-3 text-center p-3">
-        {{ ads_belowThumbnail }}
+        {{ ads_belowThumbnail|safe }}
     </div>
     {% endif %}
 
@@ -75,7 +75,7 @@
 
         {% if ads_belowPost %}
         <div class="mb-3 text-center p-3">
-            {{ ads_belowPost }}
+            {{ ads_belowPost|safe }}
         </div>
         {% endif %}
 
@@ -92,34 +92,68 @@
     </div>
 </div>
 
-<div class="card-footer align-items-center bg-white d-flex">
-    <div class="mt-2 ms-5 avatar avatar-xl">
-        <a href="{{ post.author.get_absolute_url }}">
-        {% if post.author.profile_photo %}
-            {% thumbnail post.author.profile_photo "400x400" crop="center" as img %}
-                <img src="{{ img.url }}" class="rounded-circle">
-            {% endthumbnail %}
-        {% else %}
-            <img src="{% static 'images/blank_user_md.png' %}" class="img-fluid rounded-circle">
-        {% endif %}
-        </a>
+<div class="card-footer bg-white">
+    <div class="d-flex my-2 align-items-center">
+        <div class="ms-5 avatar avatar-xl">
+            <a href="{{ post.author.get_absolute_url }}">
+            {% if post.author.profile_photo %}
+                {% thumbnail post.author.profile_photo "400x400" crop="center" as img %}
+                    <img src="{{ img.url }}" class="rounded-circle">
+                {% endthumbnail %}
+            {% else %}
+                <img src="{% static 'images/blank_user_md.png' %}" class="img-fluid rounded-circle">
+            {% endif %}
+            </a>
+        </div>
+        <p class="mx-3">
+            <a href="{{ post.author.get_absolute_url }}"><span class="h4 fw-bold">{{ post.author.display_name }}</span></a><br>
+            {% if post.author.bio %}{{ post.author.bio }}<br>{% endif %}
+            {% if post.author.url %}<a href="{{ post.author.url }}">Learn More...</a>{% endif %}
+        </p>
     </div>
-    <p class="mx-3 mt-2">
-        <a href="{{ post.author.get_absolute_url }}"><span class="h4 fw-bold">{{ post.author.display_name }}</span></a><br>
-        {% if post.author.bio %}{{ post.author.bio }}<br>{% endif %}
-        {% if post.author.url %}<a href="{{ post.author.url }}">Learn More...</a>{% endif %}
-    </p>
 </div>
 </div>
 
 <div class="card mb-3 p-3">
+    <p class="text-dark fs-4 fw-bold">Read more by this author</p>
+    <div class="row row-cols-1 row-cols-lg-3 g-4">
 
+        {% for post in related_posts %}
+        <div class="col">
+            <div class="card border h-100">
+                <a href="{{ post.get_absolute_url }}">
+                    {% if post.thumbnail %}
+                        {% thumbnail post.thumbnail "640x360" crop="center" as img %}
+                            <img src="{{ img.url }}" class="card-img-top">
+                        {% endthumbnail %}
+                    {% else %}
+                        <img src="{% static 'images/blank_post_md.png' %}" class="card-img-top">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title|truncatewords:5 }}</h5>
+                        <p class="card-text">{{ post.excerpt|truncatewords:12 }}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
 
-    {% if ads_belowRelated %}
-    <div class="mb-3 text-center p-3">
-        {{ ads_belowRelated }}
+      </div>
+</div>
+
+{% if ads_belowRelated %}
+    <div class="mb-3 card text-center p-3">
+        {{ ads_belowRelated|safe }}
     </div>
-    {% endif %}
+{% endif %}
+
+<div class="card mb-3 p-3">
+    <p class="text-dark fs-4 fw-bold">Discussions</p>
+    <div class="row row-cols-1 row-cols-lg-3 g-4">
+
+        comming soon///
+
+      </div>
 </div>
 
 {% endblock %}

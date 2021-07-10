@@ -97,7 +97,7 @@
 
         <div class="card-footer bg-white text-center">
             {% if post %}
-                <a href="{% url 'user_delete_post' post.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'user_delete_post' post.slug %}" class="btn btn-danger">Delete</a>
                 <button class="btn btn-primary" type="submit">Save Edited Changes</button>
             {% elif comment %}
                 <a href="{% url 'user_delete_comment' comment.id %}" class="btn btn-danger">Delete</a>
@@ -106,7 +106,7 @@
                 <button class="btn btn-primary" type="submit">Change Password</button>
             {% elif del_post %}
                 <button class="btn btn-danger" type="submit">Yes, I'm Sure!</button>
-                <a href="{% url 'user_edit_post' del_post.id %}" class="mx-3">No, Cancel</a>
+                <a href="{% url 'user_edit_post' del_post.slug %}" class="mx-3">No, Cancel</a>
             {% elif del_comment %}
                 <button class="btn btn-danger" type="submit">Yes, I'm Sure!</button>
                 <a href="{% url 'user_edit_comment' del_comment.id %}" class="mx-3">No, Cancel</a>

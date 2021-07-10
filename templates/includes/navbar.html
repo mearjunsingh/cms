@@ -1,49 +1,48 @@
 {% load static %}
 
-<div class="container fw-bold">
+<nav class="card rounded-0 border-bottom py-2">
+    <div class="container d-flex justify-content-between"> 
+        <div>
+            <a class="text-dark mx-2" href="#">Home</a>
+            <a class="text-dark mx-2" href="#">About</a>
+            <a class="text-dark mx-2" href="#">Privacy</a>
+        </div> 
+        <div>
+            {% if request.user.is_authenticated %}
+                <a class="text-dark mx-2" href="{% url 'user_dashboard' %}">Dashboard</a>
+            {% else %}
+                <a class="text-dark mx-2" href="{% url 'user_login' %}">Login</a>
+                <a class="text-dark mx-2" href="{% url 'user_register' %}">Register</a>
+            {% endif %}
+        </div>           
+  </div>
+</nav>
 
-    <header class="  py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
+<nav class="navbar card rounded-0 navbar-expand-lg sticky-top navbar-light">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'homepage' %}">{{ site_brand }}</a>
 
-            <div class="col-4">
-                <a class="link-secondary" href="#">Subscribe</a>
-            </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-            <div class="col-4 text-center">
-                <a class="blog-header-logo text-dark" href="#">
-                    <img src="{% static 'logo_md' %}">
-                </a>
-            </div>
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-            <div class="col-4 d-flex justify-content-end">
-                <a class="link-secondary mx-2" href="#">Login</a>
-                <a class="link-secondary mx-2" href="#">Register</a>
-            </div>
+          {% for menu_item in menu_items %}
+            <li class="nav-item">
+                <a class="text-dark nav-link" href="{{ menu_item.get_absolute_url }}">{{ menu_item.get_text }}</a>
+            </li>
+        {% endfor %}
 
-        </div>
-    </header>
+        </ul>
 
-    <hr class="divider">
-    </hr>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
 
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
+      </div>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {% for menu_item in menu_items %}
-                        <a class="nav-link" href="{{ menu_item.get_absolute_url }}">{{ menu_item.text }}</a>
-                    {% endfor %}
-                </div>
-            </div>
-
-        </div>
-    </nav>
-
-</div>
+    </div>
+  </nav>

@@ -13,10 +13,13 @@
 {% endblock %}
 
 {% block body%}
-<div class="container">
-  <h3>All</h3>
-  {% include 'includes/post_list.html' %}
-</div>
+  <div class="card mb-3 p-3">
+    <p class="text-dark lead fw-bold">{{ page_title }}</p>
+    {% include 'includes/post_list.html' %}
+    <div class="mt-4">
+      {% include 'includes/pagination.html' %}
+    </div>
+  </div>
 {% endblock %}
 
 {% block scripts %}

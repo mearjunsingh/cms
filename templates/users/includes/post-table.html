@@ -28,7 +28,7 @@
                             <img src="{% static 'images/blank_post_sm.png' %}" class="rounded-1 border">
                         {% endif %}
                         <div class="ms-3 lh-1">
-                            <h5 class="fw-bold mb-1"><a href="{% url 'user_edit_post' post.id %}"
+                            <h5 class="fw-bold mb-1"><a href="{% url 'user_edit_post' post.slug %}"
                                     class="text-inherit">{{ post.title|truncatewords:4 }}</a></h5>
                         </div>
                     </div>
