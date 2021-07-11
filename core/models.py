@@ -14,9 +14,9 @@ from .utils import upload_image_path
 class Menu(models.Model):
     text = models.CharField(_('Menu Text'), max_length=100, blank=True, help_text=_('Displayed in case of link menu'))
     link = models.CharField(_('Menu Link'), max_length=255, blank=True, null=True)
-    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name=_('Category'), blank=True, null=True)
-    tag = models.ForeignKey(Tag, on_delete=models.DO_NOTHING, verbose_name=_('Tag'), blank=True, null=True)
-    page = models.ForeignKey('Page', on_delete=models.DO_NOTHING, verbose_name=_('Page'), blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name=_('Category'), blank=True, null=True)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, verbose_name=_('Tag'), blank=True, null=True)
+    page = models.ForeignKey('Page', on_delete=models.CASCADE, verbose_name=_('Page'), blank=True, null=True)
 
     def __str__(self) -> str:
         if self.text:
@@ -71,8 +71,8 @@ class FooterMenu(Menu):
 
 class Page(models.Model):
     title = models.CharField(_('Page Title'), max_length=150)
-    excerpt = models.CharField(_('Page Excerpt'), max_length=300)
-    thumbail = models.ImageField(_('Page Thumbnail'), upload_to=upload_image_path)
+    excerpt = models.TextField(_('Page Excerpt'), max_length=300)
+    thumbnail = models.ImageField(_('Page Thumbnail'), upload_to=upload_image_path, blank=True)
     slug = models.SlugField(_('Page Slug'), unique=True)
     content = RichTextUploadingField(_('Page Content'))
     is_published = models.BooleanField(_('Is Published'), default=True)

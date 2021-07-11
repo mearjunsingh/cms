@@ -9,7 +9,7 @@ from core.utils import upload_image_path, generate_unique_slug
 
 class Post(models.Model):
     title = models.CharField(_('Post Title'), max_length=150)
-    excerpt = models.CharField(_('Post Excerpt'), max_length=300)
+    excerpt = models.TextField(_('Post Excerpt'), max_length=300)
     thumbnail = models.ImageField(_('Post Thumbnail'), upload_to=upload_image_path, blank=True)
     slug = models.SlugField(_('Post Slug'), unique=True)
     content = RichTextUploadingField(_('Post Content'))
