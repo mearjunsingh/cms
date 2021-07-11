@@ -147,6 +147,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 from django.urls import reverse_lazy
 AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = reverse_lazy('user_login')
+LOGIN_REDIRECT_URL = reverse_lazy('user_dashboard')
 LOGOUT_REDIRECT_URL = reverse_lazy('homepage')
 
 # Ckeditor configuration

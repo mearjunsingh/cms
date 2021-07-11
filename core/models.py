@@ -50,7 +50,23 @@ class Menu(models.Model):
             return 'Some Link'
     
     class Meta:
-        verbose_name_plural = 'Menu Items'
+        abstract = True
+
+
+
+class MainMenu(Menu):
+    class Meta:
+        verbose_name_plural = 'Main Menu Items'
+
+
+class TopMenu(Menu):
+    class Meta:
+        verbose_name_plural = 'Top Menu Items'
+
+
+class FooterMenu(Menu):
+    class Meta:
+        verbose_name_plural = 'Footer Menu Items'
 
 
 class Page(models.Model):

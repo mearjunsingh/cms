@@ -3,7 +3,10 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import (
-    AuthenticationForm, PasswordChangeForm, UserCreationForm, PasswordResetForm,
+    AuthenticationForm,
+    PasswordChangeForm,
+    UserCreationForm,
+    PasswordResetForm,
     SetPasswordForm
 )
 from posts.models import Comment, Post, Category, Tag
@@ -11,7 +14,7 @@ from posts.models import Comment, Post, Category, Tag
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label=_('Username'), widget=forms.TextInput({'class' : 'form-control'}))
-    password = forms.CharField(label=_('Password'), strip=False, widget=forms.TextInput({'class' : 'form-control'}))
+    password = forms.CharField(label=_('Password'), strip=False, widget=forms.PasswordInput({'class' : 'form-control'}))
 
 
 class RegisterForm(UserCreationForm):

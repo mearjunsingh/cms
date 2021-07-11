@@ -1,11 +1,13 @@
 from posts.models import Post
-from .models import Menu, Ad
+from .models import MainMenu, Ad, TopMenu, FooterMenu
 from posts.forms import SearchForm
 
 
 def menu_items(request):
     context = {}
-    context['menu_items'] = Menu.objects.all()
+    context['main_menu'] = MainMenu.objects.all()
+    context['top_menu'] = TopMenu.objects.all()
+    context['footer_menu'] = FooterMenu.objects.all()
     context['search_form'] = SearchForm(request.GET or None)
     return context
 

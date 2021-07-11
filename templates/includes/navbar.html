@@ -3,9 +3,9 @@
 <nav class="card rounded-0 border-bottom py-2">
     <div class="container d-flex justify-content-between"> 
         <div>
-            <a class="text-dark text-primary-hover mx-2" href="#">Home</a>
-            <a class="text-dark text-primary-hover mx-2" href="#">About</a>
-            <a class="text-dark text-primary-hover mx-2" href="#">Privacy</a>
+          {% for menu_item in top_menu %}
+            <a class="text-dark text-primary-hover mx-2" href="{{ menu_item.get_absolute_url }}">{{ menu_item.get_text }}</a>
+          {% endfor %}
         </div> 
         <div>
             {% if request.user.is_authenticated %}
@@ -29,7 +29,7 @@
       <div class="collapse navbar-collapse" id="mainNavbar">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-          {% for menu_item in menu_items %}
+          {% for menu_item in main_menu %}
             <li class="nav-item">
                 <a class="text-dark text-primary-hover fw-bold nav-link" href="{{ menu_item.get_absolute_url }}">{{ menu_item.get_text }}</a>
             </li>

@@ -1,11 +1,15 @@
 from django.contrib import admin
 from .models import (
-    Menu,
+    MainMenu,
+    TopMenu,
+    FooterMenu,
     Page,
     Ad
 )
 
 
-admin.site.register(Menu)
+admin.site.register(MainMenu)
+admin.site.register(TopMenu)
+admin.site.register(FooterMenu)
 admin.site.register(Page)
 admin.site.register(Ad)

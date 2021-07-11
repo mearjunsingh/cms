@@ -82,9 +82,12 @@ class UserDashboard(LoginRequiredMixin, TemplateView):
         user_posts = temp_posts.filter(author=self.request.user)
         comments = Comment.objects.filter(is_approved=True, post__author=self.request.user)
         context['total_posts_count'] = user_posts.count()
-        context['total_views_count'] = user_posts.aggregate(Sum('views'))['views__sum']
+        context['total_views_count'] = user_posts.aggregate(Sum('views'))['views__sum'] or '0'
         context['total_comments_count'] = comments.count()
-        context['rank'] = int((context['total_views_count'] * 100) / temp_posts.aggregate(Sum('views'))['views__sum'])
+        try:
+            context['rank'] = int((context['total_views_count'] * 100) / temp_posts.aggregate(Sum('views'))['views__sum'])
+        except:
+            context['rank'] = 0
         context['post_list'] = user_posts.order_by('-views')[:10]
         context['current_page'] = 'dashboard'
         return context
