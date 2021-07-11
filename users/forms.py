@@ -1,15 +1,43 @@
-from ckeditor import fields
 from django import forms
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import (
+    AuthenticationForm, PasswordChangeForm, UserCreationForm, PasswordResetForm,
+    SetPasswordForm
+)
 from posts.models import Comment, Post, Category, Tag
 
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label=_('Username'), widget=forms.TextInput({'class' : 'form-control'}))
     password = forms.CharField(label=_('Password'), strip=False, widget=forms.TextInput({'class' : 'form-control'}))
+
+
+class RegisterForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['autofocus'] = False
+
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class' : 'form-control'}), required=True)
+    password1 = forms.CharField(label=_('Password'), help_text=_('Strong password required'), widget=forms.PasswordInput(attrs={'class': 'form-control'}), required=True)
+    password2 = forms.CharField(label=_('Confirm Password'), widget=forms.PasswordInput(attrs={'class': 'form-control'}), required=True)
+
+    class Meta:
+        model = User
+        fields = ['email', 'username', 'password1', 'password2']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+
+class ResetPasswordForm(PasswordResetForm):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class' : 'form-control'}), required=True)
+
+
+class NewPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(label=_('Password'), help_text=_('Strong password required'), widget=forms.PasswordInput(attrs={'class': 'form-control'}), required=True)
+    new_password2 = forms.CharField(label=_('Confirm Password'), widget=forms.PasswordInput(attrs={'class': 'form-control'}), required=True)
 
 
 class PostForm(forms.ModelForm):

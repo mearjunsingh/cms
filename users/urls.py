@@ -3,6 +3,10 @@ from django.urls import path
 from .views import (
     RegisterUser,
     LoginUser,
+    ResetPassword,
+    ConfirmResetPassword,
+    DoneResetPassword,
+    CompleteResetPassword,
     UserDashboard,
     AllPosts,
     NewPost,
@@ -19,8 +23,12 @@ from .views import (
 
 
 urlpatterns = [
-    path('register/', LoginUser.as_view(), name='user_register'),
-    path('login/', RegisterUser.as_view(), name='user_login'),
+    path('register/', RegisterUser.as_view(), name='user_register'),
+    path('login/', LoginUser.as_view(), name='user_login'),
+    path('reset-password/', ResetPassword.as_view(), name='user_reset_password'),
+    path('confirm-reset-password/<str:uidb64>/<str:token>/', ConfirmResetPassword.as_view(), name='user_confirm_reset_password'),
+    path('success-reset-password/', DoneResetPassword.as_view(), name='user_done_reset_password'),
+    path('password-changed/', CompleteResetPassword.as_view(), name='user_complete_reset_password'),
     path('user/', UserDashboard.as_view(), name='user_dashboard'),
     path('user/all-posts/', AllPosts.as_view(), name='user_all_posts'),
     path('user/new-post/', NewPost.as_view(), name='user_new_post'),

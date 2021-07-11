@@ -1,6 +1,14 @@
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from django.contrib.auth.views import LoginView, PasswordChangeView, LogoutView
+from django.contrib.auth.views import (
+    LoginView,
+    PasswordChangeView,
+    LogoutView,
+    PasswordResetView,
+    PasswordResetConfirmView,
+    PasswordResetDoneView,
+    PasswordResetCompleteView
+)
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -10,6 +18,9 @@ from core.utils import get_client_ip
 from posts.models import Comment, Post
 from .forms import (
     LoginForm,
+    RegisterForm,
+    ResetPasswordForm,
+    NewPasswordForm,
     PostForm,
     PostFilterForm,
     CommentForm,
@@ -19,18 +30,47 @@ from .forms import (
 )
 
 
-class RegisterUser(LoginView):
-    template_name = 'users/d.html'
-    form_class = LoginForm
-    success_url = '/profile/'
+class RegisterUser(CreateView):
+    template_name = 'users/auth-form.html'
+    form_class =  RegisterForm
+    success_url = reverse_lazy('user_dashboard')
     redirect_authenticated_user = True
+    extra_context = {'mode' : 'register'}
+
+    def form_valid(self, form):
+        return super().form_valid(form)
 
 
 class LoginUser(LoginView):
-    template_name = 'users/d.html'
+    template_name = 'users/auth-form.html'
     form_class = LoginForm
-    success_url = '/profile/'
+    success_url = reverse_lazy('user_dashboard')
     redirect_authenticated_user = True
+    extra_context = {'mode' : 'login'}
+
+
+class ResetPassword(PasswordResetView):
+    email_template_name = 'users/mails/password_reset_email.html'
+    template_name = 'users/auth-form.html'
+    form_class = ResetPasswordForm
+    success_url = reverse_lazy('user_done_reset_password')
+    extra_context = {'mode' : 'reset'}
+
+
+class ConfirmResetPassword(PasswordResetConfirmView):
+    template_name = 'users/auth-form.html'
+    form_class = NewPasswordForm
+    reset_url_token = 'set-new-password'
+    success_url = reverse_lazy('user_complete_reset_password')
+    extra_context = {'mode' : 'new_password'}
+
+
+class DoneResetPassword(PasswordResetDoneView):
+    template_name = 'users/password-done-message.html'
+
+
+class CompleteResetPassword(PasswordResetCompleteView):
+    template_name = 'users/password-done-message.html'
 
 
 class UserDashboard(LoginRequiredMixin, TemplateView):

@@ -21,11 +21,11 @@ from django.shortcuts import render
 
 
 urlpatterns = [
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('admin/', admin.site.urls),
     path('', include('users.urls')),
     path('', include('posts.urls')),
-    path('', include('core.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('admin/', admin.site.urls)
+    path('', include('core.urls'))
 ]
 
 if settings.DEBUG:

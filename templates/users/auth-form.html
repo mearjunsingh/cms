@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% include 'includes/head.html' %}
+
+  {% block meta %}
+  {% endblock %}
+
+  {% block styles %}
+  {% endblock %}
+</head>
+
+<body>
+
+  <div class="bg-primary pt-10 pb-21"></div>
+  <div class="container mt-n22 px-6">
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show"
+      role="alert">
+      {{ message|safe }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+
+    {% block body %}
+
+    <div class="container d-flex flex-column">
+      <div class="row align-items-center justify-content-center g-0">
+        <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0">
+         
+          <div class="card smooth-shadow-md">
+            <div class="card-body p-6">
+
+              <div class="mb-4">
+                <a href="{{ request.META.HTTP_REFERER  }}">Back</a> | <a href="{% url 'homepage' %}">Home</a>
+                {% if mode == 'register' %}
+                  <h2 class="h2">Register</h2>
+                {% elif mode == 'login' %}
+                  <h2 class="h2">Login</h2>
+                {% elif mode == 'reset' %}
+                  <h2 class="h2">Reset Password</h2>
+                {% elif mode == 'new_password' %}
+                  <h2 class="h2">Set New Password</h2>
+                {% endif %}
+              </div>              
+
+              <form method="post">
+                {% include 'includes/form.html' %}
+                {% if mode == 'register' %}
+                  <button class="mt-2 btn btn-primary" type="submit">Register</button>
+                  <div class="mt-2">
+                    Already registered? <a href="{% url 'user_login' %}">Login here</a>
+                  </div>
+                {% elif mode == 'login' %}
+                  <button class="mt-2 btn btn-primary" type="submit">Login</button>
+                  <div class="mt-3">
+                    Not registered yet? <a href="{% url 'user_register' %}">Register here</a>
+                  </div>
+                  <div class="mt-3">
+                    Forgot password? <a href="{% url 'user_reset_password' %}">Reset here</a>
+                  </div>
+                {% elif mode == 'reset' %}
+                  <button class="mt-2 btn btn-primary" type="submit">Send password reset link</button>
+                  <div class="mt-3">
+                    <a href="{% url 'user_login' %}">Back to login</a>
+                  </div>
+                {% elif mode == 'new_password' %}
+                  <button class="mt-2 btn btn-primary" type="submit">Reset Password</button>
+                {% endif %}
+              </form>
+
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    {% endblock %}
+
+  </div>
+
+  {% include 'includes/foot.html' %}
+  {% block scripts %}
+  {% endblock %}
+</body>
+
+</html>
