@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.contrib.auth.views import (
@@ -37,6 +38,11 @@ class RegisterUser(CreateView):
     redirect_authenticated_user = True
     extra_context = {'mode' : 'register'}
 
+    def dispatch(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect(reverse_lazy('user_dashboard'))
+        return super().dispatch(*args, **kwargs)
+
     def form_valid(self, form):
         return super().form_valid(form)
 
@@ -56,6 +62,11 @@ class ResetPassword(PasswordResetView):
     success_url = reverse_lazy('user_done_reset_password')
     extra_context = {'mode' : 'reset'}
 
+    def dispatch(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect(reverse_lazy('user_dashboard'))
+        return super().dispatch(*args, **kwargs)
+
 
 class ConfirmResetPassword(PasswordResetConfirmView):
     template_name = 'users/auth-form.html'
@@ -64,13 +75,28 @@ class ConfirmResetPassword(PasswordResetConfirmView):
     success_url = reverse_lazy('user_complete_reset_password')
     extra_context = {'mode' : 'new_password'}
 
+    def dispatch(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect(reverse_lazy('user_dashboard'))
+        return super().dispatch(*args, **kwargs)
+
 
 class DoneResetPassword(PasswordResetDoneView):
     template_name = 'users/password-done-message.html'
 
+    def dispatch(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect(reverse_lazy('user_dashboard'))
+        return super().dispatch(*args, **kwargs)
+
 
 class CompleteResetPassword(PasswordResetCompleteView):
     template_name = 'users/password-done-message.html'
+
+    def dispatch(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect(reverse_lazy('user_dashboard'))
+        return super().dispatch(*args, **kwargs)
 
 
 class UserDashboard(LoginRequiredMixin, TemplateView):
@@ -267,7 +293,7 @@ class UserProfile(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 class DeleteUser(LoginRequiredMixin, DeleteView):
     template_name = 'users/user-form.html'
-    success_url = '/' # reverse_lazy('homepage')
+    success_url = reverse_lazy('homepage')
     context_object_name = 'del_user'
 
     def get_object(self):
