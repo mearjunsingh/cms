@@ -61,7 +61,7 @@ class BrowseList(BaseListView):
 class CategoryList(BaseListView):
     
     def get_queryset(self):
-        posts = Post.objects.filter(is_published=True).filter(categories__slug=self.kwargs.get('cat'))
+        posts = Post.objects.filter(is_published=True).filter(categories__slug=self.kwargs.get('cat')).order_by('-modified_date')
         term = self.request.GET.get('search')
         if term:
             posts = posts.filter(title__icontains=term)
@@ -77,7 +77,7 @@ class CategoryList(BaseListView):
 class TagList(BaseListView):
     
     def get_queryset(self):
-        posts =  Post.objects.filter(is_published=True).filter(tags__slug=self.kwargs.get('tag'))
+        posts =  Post.objects.filter(is_published=True).filter(tags__slug=self.kwargs.get('tag')).order_by('-modified_date')
         term = self.request.GET.get('search')
         if term:
             posts = posts.filter(title__icontains=term)
@@ -93,7 +93,7 @@ class TagList(BaseListView):
 class AuthorList(BaseListView):
     
     def get_queryset(self):
-        posts =  Post.objects.filter(is_published=True).filter(author__username=self.kwargs.get('auth'))
+        posts =  Post.objects.filter(is_published=True).filter(author__username=self.kwargs.get('auth')).order_by('-modified_date')
         term = self.request.GET.get('search')
         if term:
             posts = posts.filter(title__icontains=term)

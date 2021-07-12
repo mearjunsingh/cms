@@ -4,6 +4,18 @@
 {% load humanize %}
 
 {% block meta %}
+<title>#</title>
+<meta name="keywords" content="#" />
+<meta name="description" content="#" />
+<meta name="author" content="#" />
+
+<meta property="og:title" content="#" />
+<meta property="og:description" content="#" />
+<meta property="og:image" content="#" />
+
+<meta property="twitter:title" content="#" />
+<meta property="twitter:description" content="#" />
+<meta property="twitter:image" content="#" />
 {% endblock %}
 
 {% block styles %}
@@ -17,6 +29,7 @@
 </div>
 {% endif %}
 
+{% if featured_posts %}
 <div class="card p-3">
 <div class="row g-2">
 
@@ -77,6 +90,7 @@
 
 </div>
 </div>
+{% endif %}
 
 {% endblock %}
 
@@ -89,10 +103,12 @@
 </div>
 {% endif %}
 
+{% if section_one_cat %}
 <div class="card mb-3 p-3">
-    <p class="text-dark lead fw-bold">Recent in sports</p>
-    {% include 'includes/post_list.html' %}
+    <p class="text-dark lead fw-bold">Recent in <a href="{{ section_one_cat.get_absolute_url }}">{{ section_one_cat.display }}</a></p>
+    {% include 'includes/post_list.html' with post_list=section_one %}
 </div>
+{% endif %}
 
 {% if ads_belowFirstSection %}
 <div class="card text-center mb-3 p-3">
@@ -100,10 +116,12 @@
 </div>
 {% endif %}
 
+{% if section_two_cat %}
 <div class="card mb-3 p-3">
-    <p class="text-dark lead fw-bold">Recent in entertainment</p>
-    {% include 'includes/post_list.html' %}
+    <p class="text-dark lead fw-bold">Recent in <a href="{{ section_two_cat.get_absolute_url }}">{{ section_two_cat.display }}</a></p>
+    {% include 'includes/post_list.html' with post_list=section_two %}
 </div>
+{% endif %}
 
 {% if ads_belowSecondSection %}
 <div class="card text-center mb-3 p-3">
@@ -111,10 +129,12 @@
 </div>
 {% endif %}
 
+{% if section_three_cat %}
 <div class="card mb-3 p-3">
-    <p class="text-dark lead fw-bold">Recent in technology</p>
-    {% include 'includes/post_list.html' %}
+    <p class="text-dark lead fw-bold">Recent in <a href="{{ section_three_cat.get_absolute_url }}">{{ section_three_cat.display }}</a></p>
+    {% include 'includes/post_list.html' with post_list=section_three %}
 </div>
+{% endif %}
 
 {% endblock %}
 

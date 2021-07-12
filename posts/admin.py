@@ -18,6 +18,7 @@ class PostAdmin(admin.ModelAdmin):
     list_editable = ['is_published']
     list_filter = ['is_published', 'is_featured', 'categories', 'tags']
     filter_horizontal = ['categories', 'tags']
+    save_on_top = True
     fieldsets = (
         (None, {
             'fields': (

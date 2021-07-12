@@ -3,7 +3,19 @@
 {% load thumbnail %}
 {% load humanize %}
 
-{% block meta %}
+{% block meta %}{{ block.super }}
+<title>{{ page.title|truncatewords:50 }} - #</title>
+<meta name="keywords" content="#" />
+<meta name="description" content="{{ page.excerpt|truncatewords:250 }}" />
+<meta name="author" content="#" />
+
+<meta property="og:title" content="{{ page.title|truncatewords:50 }} - #" />
+<meta property="og:description" content="{{ page.excerpt|truncatewords:250 }}" />
+<meta property="og:image" content="https://{{ request.get_host }}{% if page.thumbnail %}{{ page.thumbnail.url }}{% else %}{% static 'images/blank_post_lg.png' %}{% endif %}" />
+
+<meta property="twitter:title" content="{{ page.title|truncatewords:50 }} - #" />
+<meta property="twitter:description" content="{{ page.excerpt|truncatewords:250 }}" />
+<meta property="twitter:image" content="https://{{ request.get_host }}{% if page.thumbnail %}{{ page.thumbnail.url }}{% else %}{% static 'images/blank_post_lg.png' %}{% endif %}" />
 {% endblock %}
 
 {% block styles %}
@@ -27,11 +39,11 @@
                     class="btn btn-sm btn-primary"><i data-feather="facebook"></i><span
                         class="d-none d-md-inline d-lg-inline"> Share on
                         Facebook</span></a>
-                <a href="https://twitter.com/intent/tweet?text={{ post.title }}%0ARead%20Here%3A%20{{ request.build_absolute_uri }}"
+                <a href="https://twitter.com/intent/tweet?text={{ page.title }}%0ARead%20Here%3A%20{{ request.build_absolute_uri }}"
                     class="btn btn-sm btn-info text-white"><i data-feather="twitter"></i><span
                         class="d-none d-md-inline d-lg-inline"> Tweet on
                         Twitter</span></a>
-                <a href="mailto:?subject={{ post.title }}&body={{ post.meta }}%0ARead%20Here%3A%20{{ request.build_absolute_uri }}"
+                <a href="mailto:?subject={{ page.title }}&body={{ page.excerpt }}%0ARead%20Here%3A%20{{ request.build_absolute_uri }}"
                     class="btn btn-sm btn-danger"><i data-feather="mail"></i><span
                         class="d-none d-md-inline d-lg-inline"> Email</span></a>
             </p>

@@ -109,3 +109,23 @@ class Ad(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Homepage(models.Model):
+    sections = (
+        ('section_one', 'Section One'),
+        ('section_two', 'Section Two'),
+        ('section_three', 'Section Three')
+    )
+    section = models.CharField(_('Section'), max_length=50, unique=True, choices=sections)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name=_('Category'))
+
+    def __str__(self):
+        return self.section
+    
+    @property
+    def get_absolute_url(self):
+        return self.category.get_absolute_url
+    
+    class Meta:
+        verbose_name_plural = _('Homepage')

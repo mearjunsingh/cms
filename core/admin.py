@@ -5,7 +5,8 @@ from .models import (
     TopMenu,
     FooterMenu,
     Page,
-    Ad
+    Ad,
+    Homepage
 )
 
 @admin.register(MainMenu, TopMenu, FooterMenu)
@@ -57,3 +58,10 @@ class AdAdmin(ModelAdmin):
     list_editable = ['is_active']
     list_per_page = 50
     list_filter = ['is_active']
+
+
+@admin.register(Homepage)
+class HomepageAdmin(ModelAdmin):
+    list_display = ['section', 'category']
+    autocomplete_fields = ['category']
+    view_on_site = False
