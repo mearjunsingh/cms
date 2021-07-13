@@ -5,12 +5,7 @@
 
 <head>
   {% include 'includes/head.html' %}
-
-  {% block meta %}
-  {% endblock %}
-
-  {% block styles %}
-  {% endblock %}
+  {% include 'includes/meta.html' %}
 </head>
 
 <body>
@@ -30,27 +25,15 @@
     {% endfor %}
     {% endif %}
 
-
-    {% block body %}
-
     <div class="container mb-3 d-flex flex-column">
       <div class="row align-items-center justify-content-center g-0">
         <div class="col-12 col-md-8 col-lg-8 col-xxl-4 py-8 py-xl-0">
 
-          <div class="card pb-3 shadow">
+          <div class="card py-3 shadow">
             <div class="text-center">
-              <div class="mb-3">
-                <img src="{% static 'images/error_404.png' %}" class="img-fluid" style="height:200px; width:300px;">
-              </div>
-              <h1 class="display-4 fw-bold">
-                  {% if msg == "msg_1" %}
-                    {{ msg_1 }}
-                  {% elif msg == "msg_1" %}
-                    {{ msg_2 }}
-                  {% endif %}
-              </h1>
-              <p class="mb-4">{{ sub_msg}}</p>
-              <a href="{% url 'homepage' %}" class="btn btn-primary"><i data-feather="lock"></i> Login</a>
+                <h1 class="display-4 fw-bold">{{ message }}</h1>
+                <p class="mb-4">Please take a time to report this issue to us.</p>
+                <a href="{% url 'homepage' %}" class="btn btn-primary"><i data-feather="home"></i> Go Home</a>
             </div>
           </div>
 
@@ -58,17 +41,14 @@
       </div>
     </div>
 
-    {% endblock %}
-
-    <div class="text-center fixed-bottom  my-6">
+    <div class="text-center fixed-bottom my-6">
       2021 &copy; All Rights Reserved.
     </div>
 
   </div>
 
   {% include 'includes/foot.html' %}
-  {% block scripts %}
-  {% endblock %}
+
 </body>
 
 </html>

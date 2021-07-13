@@ -19,6 +19,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import render
 
+handler400 = 'handler400'
+handler403 = 'handler403'
+handler404 = 'handler404'
+handler500 = 'handler500'
+
 urlpatterns = []
 
 """
@@ -47,3 +52,19 @@ if settings.DEBUG:
 admin.site.site_header = 'Custom CMS Administration'
 admin.site.index_title = 'Admin Panel'
 admin.site.site_title = 'Custom CMS'
+
+def handler400(request, exception=None):
+    data = {'message': 'Bad Request'}
+    return render(request, 'error.html', data)
+
+def handler403(request, exception=None):
+    data = {'message': 'Forbidden'}
+    return render(request, 'error.html', data)
+
+def handler404(request, exception=None):
+    data = {'message': 'Page not found'}
+    return render(request, 'error.html', data)
+
+def handler500(request, exception=None):
+    data = {'message': 'Server Error'}
+    return render(request, 'error.html', data)

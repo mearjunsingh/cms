@@ -3,19 +3,8 @@
 {% load thumbnail %}
 {% load humanize %}
 
-{% block meta %}{{ block.super }}
-<title>{{ page.title|truncatewords:50 }} - #</title>
-<meta name="keywords" content="#" />
-<meta name="description" content="{{ page.excerpt|truncatewords:250 }}" />
-<meta name="author" content="#" />
-
-<meta property="og:title" content="{{ page.title|truncatewords:50 }} - #" />
-<meta property="og:description" content="{{ page.excerpt|truncatewords:250 }}" />
-<meta property="og:image" content="https://{{ request.get_host }}{% if page.thumbnail %}{{ page.thumbnail.url }}{% else %}{% static 'images/blank_post_lg.png' %}{% endif %}" />
-
-<meta property="twitter:title" content="{{ page.title|truncatewords:50 }} - #" />
-<meta property="twitter:description" content="{{ page.excerpt|truncatewords:250 }}" />
-<meta property="twitter:image" content="https://{{ request.get_host }}{% if page.thumbnail %}{{ page.thumbnail.url }}{% else %}{% static 'images/blank_post_lg.png' %}{% endif %}" />
+{% block meta %}
+    {{ block.super }}
 {% endblock %}
 
 {% block styles %}

@@ -4,18 +4,7 @@
 {% load humanize %}
 
 {% block meta %}
-<title>All posts{% if search_term %} matching with: '{{ search_term }}'{% endif %}{% if list_term %} under {{ list_type }}: '{{ list_term }}'{% endif %} - #</title>
-<meta name="keywords" content="#" />
-<meta name="description" content="#" />
-<meta name="author" content="#" />
-
-<meta property="og:title" content="All posts{% if search_term %} matching with: '{{ search_term }}'{% endif %}{% if list_term %} under {{ list_type }}: '{{ list_term }}'{% endif %} - #" />
-<meta property="og:description" content="#" />
-<meta property="og:image" content="#' %}" />
-
-<meta property="twitter:title" content="All posts{% if search_term %} matching with: '{{ search_term }}'{% endif %}{% if list_term %} under {{ list_type }}: '{{ list_term }}'{% endif %} - #" />
-<meta property="twitter:description" content="#" />
-<meta property="twitter:image" content="#" />
+  {% include 'includes/meta.html' with custom_title="Browse articles" %}
 {% endblock %}
 
 {% block styles %}

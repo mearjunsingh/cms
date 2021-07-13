@@ -3,12 +3,6 @@
 
 <head>
   {% include 'includes/head.html' %}
-
-  {% block meta %}
-  {% endblock %}
-
-  {% block styles %}
-  {% endblock %}
 </head>
 
 <body>
@@ -25,9 +19,6 @@
     </div>
     {% endfor %}
     {% endif %}
-
-
-    {% block body %}
 
     <div class="container d-flex flex-column">
       <div class="row align-items-center justify-content-center g-0">
@@ -81,13 +72,14 @@
       </div>
     </div>
 
-    {% endblock %}
+    <div class="text-center my-6">
+      2021 &copy; All Rights Reserved.
+    </div>
 
   </div>
 
   {% include 'includes/foot.html' %}
-  {% block scripts %}
-  {% endblock %}
+
 </body>
 
 </html>

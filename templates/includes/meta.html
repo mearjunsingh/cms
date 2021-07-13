@@ -1,0 +1,18 @@
+{% load static %}
+
+<title>{% if custom_title %}{{ custom_title }} - {% elif obj.title %}{{ obj.title|truncatewords:50 }} - {% endif %}CMS</title>
+<meta name="keywords" content="{% if obj.categories %}{% for category in obj.categories.all %}{{ category }}{% if not forloop.last %}, {% endif %}{% endfor %}{% else %}CMS, Blog{% endif %}" />
+<meta name="description" content="{% if obj.excerpt %}{{ obj.excerpt|truncatewords:250 }}{% else %}Best CMS{% endif %}" />
+<meta name="author" content="{% if obj.author %}{{ obj.author.display_name }}{% else %}mearjunsingh{% endif %}" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{% if obj.title %}{{ obj.title|truncatewords:50 }} - {% endif %}CMS" />
+<meta property="og:description" content="{% if obj.excerpt %}{{ obj.excerpt|truncatewords:250 }}{% else %}Best CMS{% endif %}" />
+<meta property="og:image" content="https://{{ request.get_host }}{% if obj.thumbnail %}{{ obj.thumbnail.url }}{% else %}{% static 'images/blank_post_lg.png' %}{% endif %}" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:title" content="{% if obj.title %}{{ obj.title|truncatewords:50 }} - {% endif %}CMS" />
+<meta property="twitter:description" content="{% if obj.excerpt %}{{ obj.excerpt|truncatewords:250 }}{% else %}Best CMS{% endif %}" />
+<meta property="twitter:image" content="https://{{ request.get_host }}{% if obj.thumbnail %}{{ obj.thumbnail.url }}{% else %}{% static 'images/blank_post_lg.png' %}{% endif %}" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />

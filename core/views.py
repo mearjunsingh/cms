@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView
 from posts.models import Post
 from .models import Page, Homepage
@@ -21,8 +20,3 @@ class HomePage(TemplateView):
 class StaticPage(DetailView):
     template_name = 'page.html'
     queryset = Page.objects.filter(is_published=True)
-
-
-# class ContactPage(Form):
-#     template_name = 'page.html'
-#     queryset = Page.objects.filter(is_published=True)
