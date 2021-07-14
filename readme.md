@@ -1,5 +1,5 @@
 # CMS
-comming soon.
+Something like WordPress but in python. Batteries included CMS with ads, menus, pages, page sections, posts, comments, categories, tags, and user management.
 
 [More Info Here](https://arjunsingh.com.np/cms)
 
