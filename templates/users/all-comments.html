@@ -92,15 +92,21 @@
                     {% endif %}
                 </td>
             </tr>
+            {% empty %}
+              <tr>
+                <td colspan="4" class="text-center">No Comments</td>
+              </tr>
             {% endfor %}
         </tbody>
 
       </table>
   </div>
 
-  <div class="card-footer bg-white text-center">
-    {% include 'includes/pagination.html' %}
-  </div>
+  {% if page_obj.paginator.num_pages > 1 %}
+    <div class="card-footer bg-white text-center">
+      {% include 'includes/pagination.html' %}
+    </div>
+  {% endif %}
 
 </div>
 {% endblock %}

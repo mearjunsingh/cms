@@ -11,7 +11,7 @@ from .models import (
 
 @admin.register(MainMenu, TopMenu, FooterMenu)
 class MenuAdmin(ModelAdmin):
-    list_display = ['text', 'get_text', 'get_absolute_url']
+    list_display = ['get_text', 'get_absolute_url']
     search_fields = ['text', 'get_text']
     sortable_by = ['text']
     list_per_page = 50

@@ -48,9 +48,11 @@
 
   {% include 'users/includes/post-table.html' %}
 
-  <div class="card-footer bg-white text-center">
-    {% include 'includes/pagination.html' %}
-  </div>
+  {% if page_obj.paginator.num_pages > 1 %}
+    <div class="card-footer bg-white text-center">
+      {% include 'includes/pagination.html' %}
+    </div>
+  {% endif %}
 
 </div>
 {% endblock %}

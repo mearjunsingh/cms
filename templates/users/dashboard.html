@@ -99,11 +99,13 @@
           </div>
         
           {% include 'users/includes/post-table.html' %}
-        
-          <div class="card-footer bg-white text-center">
-            <a href="{% url 'user_all_posts' %}">View All Posts</a>
-          </div>
-        
+
+          {% if post_list %}
+            <div class="card-footer bg-white text-center">
+              <a href="{% url 'user_all_posts' %}">View All Posts</a>
+            </div>
+          {% endif %}
+          
         </div>
       </div>
     </div>
