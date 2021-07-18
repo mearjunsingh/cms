@@ -50,6 +50,14 @@
         {% endif %}
 
         <div class="text-center my-6">
+            <div class="mb-4">
+                {% for menu_item in footer_menu %}
+                    <a class="text-dark text-primary-hover mx-2" href="{{ menu_item.get_absolute_url }}">{{ menu_item.get_text }}</a>
+                    {% if not forloop.last %}
+                        /
+                    {% endif %}
+                {% endfor %}
+            </div>
             2021 &copy; All Rights Reserved.
         </div>
     </div>
