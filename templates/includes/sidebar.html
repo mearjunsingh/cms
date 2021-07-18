@@ -1,26 +1,20 @@
 {% load thumbnail %}
 {% load static %}
 
+{% if cms_socials %}
 <div class="card mb-3 p-3">
     <p class="text-dark fs-4 fw-bold">Connect with us</p>
     <div class="row g-2 text-center">
+        {% for social in cms_socials %}
         <div class="d-grid col-4">
-            <a href="#" class="btn btn-primary">
-                <i data-feather="facebook"></i>
+            <a href="{{ social.url }}" class="btn social-btn text-white" style="background-color: {{ social.color }};">
+                <i data-feather="{{ social.platform }}"></i>
             </a>
         </div>
-        <div class="d-grid col-4">
-            <a href="#" class="btn btn-info text-white">
-                <i data-feather="twitter"></i>
-            </a>
-        </div>
-        <div class="d-grid col-4">
-            <a href="#" class="btn btn-danger">
-                <i data-feather="youtube"></i>
-            </a>
-        </div>
+        {% endfor %}
     </div>
 </div>
+{% endif %}
 
 {% if ads_side1 %}
 <div class="card text-center mb-3 p-3">

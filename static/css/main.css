@@ -23479,30 +23479,6 @@ body {
     height: 3.36875rem;
 }
 
-.color-facebook {
-    color: #4267B2;
-}
-
-.color-twitter {
-    color: #1DA1F2;
-}
-
-.color-github {
-    color: #000000;
-}
-
-.color-google {
-    color: #db3236;
-}
-
-.color-slack {
-    color: #ce375c;
-}
-
-.color-linkedin {
-    color: #0077b5;
-}
-
 .dropdown-menu {
     font-size: 0.875rem;
     line-height: 1.375rem;
@@ -23750,4 +23726,8 @@ body {
 
 .img-container:hover img {
     transform: scale(1.1);
+}
+
+.social-btn:hover {
+    opacity: 0.8;
 }

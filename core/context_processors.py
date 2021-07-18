@@ -1,6 +1,7 @@
 from posts.models import Post
 from .models import MainMenu, Ad, TopMenu, FooterMenu
 from posts.forms import SearchForm
+from cms import cms_config
 
 
 def menu_items(request):
@@ -29,3 +30,7 @@ def sidebar_items(request):
         'recent_posts' : recent_posts
     }
     return context
+
+
+def cms_config_loader(request):
+    return cms_config.cms_config
