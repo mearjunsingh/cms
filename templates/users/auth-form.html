@@ -3,6 +3,21 @@
 
 <head>
   {% include 'includes/head.html' %}
+
+<title>
+  {% if mode == 'register' %}
+    Register
+  {% elif mode == 'login' %}
+    Login
+  {% elif mode == 'reset' %}
+    Reset Password
+  {% elif mode == 'new_password' %}
+    Set New Password
+  {% endif %}
+  - {{ cms_title }}
+</title>
+<meta name="robots" content="noindex, nofollow">
+
 </head>
 
 <body>
@@ -73,7 +88,15 @@
     </div>
 
     <div class="text-center my-6">
-      2021 &copy; All Rights Reserved.
+      <div class="mb-4">
+          {% for menu_item in footer_menu %}
+              <a class="text-dark text-primary-hover mx-2" href="{{ menu_item.get_absolute_url }}">{{ menu_item.get_text }}</a>
+              {% if not forloop.last %}
+                  /
+              {% endif %}
+          {% endfor %}
+      </div>
+      {{ cms_copyright}}
     </div>
 
   </div>

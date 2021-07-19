@@ -1,9 +1,8 @@
 cms_config = {
-    # 'cms_title': 'CMS',
-    # 'cms_description': 'CMS is a content management system for Django.',
-    # 'cms_keywords': 'django, cms, content management system, django CMS',
-    # 'cms_url': '#',
-    # 'cms_author': 'Arjun Singh',
+    'cms_title': 'CMS',
+    'cms_description': 'this is open source project. hurrah.',
+    'cms_keywords': 'django, cms, content management system, python',
+    'cms_author': 'mearjunsingh',
     'cms_copyright': '2021 © All Rights Reserved.',
     'cms_socials' : [
         # Platform must have valid icon. for supported icons, see: feathericons.com

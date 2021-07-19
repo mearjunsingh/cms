@@ -4,18 +4,24 @@
 {% load humanize %}
 
 {% block meta %}
-<title>#</title>
-<meta name="keywords" content="#" />
-<meta name="description" content="#" />
-<meta name="author" content="#" />
 
-<meta property="og:title" content="#" />
-<meta property="og:description" content="#" />
-<meta property="og:image" content="#" />
+<title>{{ cms_title }}</title>
+<meta name="keywords" content="{{ cms_keywords }}" />
+<meta name="description" content="{{ cms_description }}" />
+<meta name="author" content="{{ cms_author }}" />
 
-<meta property="twitter:title" content="#" />
-<meta property="twitter:description" content="#" />
-<meta property="twitter:image" content="#" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{ cms_title }}" />
+<meta property="og:description" content="{{ cms_description }}" />
+<meta property="og:image" content="https://{{ request.get_host }}{% static 'images/cms_thumbnail.png' %}" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:title" content="{{ cms_title }}" />
+<meta property="twitter:description" content="{{ cms_description }}" />
+<meta property="twitter:image" content="https://{{ request.get_host }}{% static 'images/cms_thumbnail.png' %}" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
+
 {% endblock %}
 
 {% block styles %}

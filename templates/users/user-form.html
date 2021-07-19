@@ -2,6 +2,27 @@
 {% load thumbnail %}
 
 {% block meta %}
+
+<title>
+    {% if post %}
+        Edit '{{ post.title }}'
+    {% elif comment %}
+        Change status of comment by '{{ comment.user.display_name }}'
+    {% elif password %}
+        Change Password
+    {% elif del_post %}
+        Delete Post '{{ del_post.title }}'
+    {% elif del_comment %}
+        Delete Comment by '{{ del_comment.user.display_name }}' on '{{ del_comment.post.title }}'
+    {% elif del_user %}
+        Delete Account
+    {% else %}
+        Write New Post
+    {% endif %}
+    - {{ cms_title }}
+</title>
+<meta name="robots" content="noindex, nofollow">
+
 {% endblock %}
 
 {% block styles %}

@@ -6,7 +6,9 @@
     <span style="cursor: pointer; padding: 5px;" id="nav-toggle"><i data-feather="menu" class="nav-icon me-2 icon-xs"></i></span>
 
     <div class="ms-lg-3">
-    <a class="mx-2" href="{% url 'homepage' %}">View Site</a>
+      {% for menu_item in top_menu %}
+      <a class="mx-2" href="{{ menu_item.get_absolute_url }}">{{ menu_item.get_text }}</a>
+      {% endfor %}
     </div>
 
     <ul class="navbar-nav navbar-right-wrap ms-auto d-flex nav-top-wrap">

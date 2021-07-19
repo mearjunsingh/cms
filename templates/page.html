@@ -4,7 +4,24 @@
 {% load humanize %}
 
 {% block meta %}
-    {{ block.super }}
+
+<title>{{ page.title|truncatewords:50 }} - {{ cms_title }}</title>
+<meta name="keywords" content="{{ cms_keywords }}" />
+<meta name="description" content="{{ page.excerpt|truncatewords:250 }}" />
+<meta name="author" content="{{ cms_author }}" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{ page.title|truncatewords:50 }} - {{ cms_title }}" />
+<meta property="og:description" content="{{ page.excerpt|truncatewords:250 }}" />
+<meta property="og:image" content="https://{{ request.get_host }}{% if page.thumbnail %}{{ page.thumbnail.url }}{% else %}{% static 'images/cms_thumbnail.png' %}{% endif %}" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:title" content="{{ page.title|truncatewords:50 }} - {{ cms_title }}" />
+<meta property="twitter:description" content="{{ page.excerpt|truncatewords:250 }}" />
+<meta property="twitter:image" content="https://{{ request.get_host }}{% if page.thumbnail %}{{ page.thumbnail.url }}{% else %}{% static 'images/cms_thumbnail.png' %}{% endif %}" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
+
 {% endblock %}
 
 {% block styles %}

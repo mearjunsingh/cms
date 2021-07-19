@@ -4,7 +4,24 @@
 {% load humanize %}
 
 {% block meta %}
-    {% include 'includes/meta.html' with obj=post %}
+
+<title>{{ post.title|truncatewords:50 }} - {{ cms_title }}</title>
+<meta name="keywords" content="{% for category in post.categories.all %}{{ category }}{% if not forloop.last %}, {% endif %}{% endfor %}" />
+<meta name="description" content="{{ post.excerpt|truncatewords:250 }}" />
+<meta name="author" content="{{ post.author.display_name }}" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{ post.title|truncatewords:50 }} - {{ cms_title }}" />
+<meta property="og:description" content="{{ post.excerpt|truncatewords:250 }}" />
+<meta property="og:image" content="https://{{ request.get_host }}{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}{% static 'images/blank_post_lg.png' %}{% endif %}" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:title" content="{{ post.title|truncatewords:50 }} - {{ cms_title }}" />
+<meta property="twitter:description" content="{{ post.excerpt|truncatewords:250 }}" />
+<meta property="twitter:image" content="https://{{ request.get_host }}{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}{% static 'images/blank_post_lg.png' %}{% endif %}" />
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}" />
+
 {% endblock %}
 
 {% block styles %}

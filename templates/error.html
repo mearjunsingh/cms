@@ -5,7 +5,13 @@
 
 <head>
   {% include 'includes/head.html' %}
-  {% include 'includes/meta.html' %}
+  
+  <title>Page Not Found (Error 404) - {{ cms_title }}</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Are you sure this is the correct url? Requested page cannot be found in this website" />
+  <meta property="og:image" content="https://{{ request.get_host }}{% static 'images/cms_thumbnail.png' %}" />
+  <meta property="twitter:image" content="https://{{ request.get_host }}{% static 'images/cms_thumbnail.png' %}" />
+
 </head>
 
 <body>
@@ -41,8 +47,16 @@
       </div>
     </div>
 
-    <div class="text-center fixed-bottom my-6">
-      2021 &copy; All Rights Reserved.
+    <div class="text-center my-6">
+      <div class="mb-4">
+          {% for menu_item in footer_menu %}
+              <a class="text-dark text-primary-hover mx-2" href="{{ menu_item.get_absolute_url }}">{{ menu_item.get_text }}</a>
+              {% if not forloop.last %}
+                  /
+              {% endif %}
+          {% endfor %}
+      </div>
+      {{ cms_copyright}}
     </div>
 
   </div>

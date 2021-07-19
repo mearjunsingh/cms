@@ -2,6 +2,10 @@
 {% load thumbnail %}
 
 {% block meta %}
+
+<title>{{ request.user.display_name }} - {{ cms_title }}</title>
+<meta name="robots" content="noindex, nofollow">
+
 {% endblock %}
 
 {% block styles %}
