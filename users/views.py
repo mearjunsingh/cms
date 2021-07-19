@@ -83,6 +83,7 @@ class ConfirmResetPassword(PasswordResetConfirmView):
 
 class DoneResetPassword(PasswordResetDoneView):
     template_name = 'users/password-done-message.html'
+    extra_context = {'message' : 'Check your email', 'description' : 'If you have an account on our website, you must have received email with password reset link.'}
 
     def dispatch(self, *args, **kwargs):
         if self.request.user.is_authenticated:
@@ -92,6 +93,7 @@ class DoneResetPassword(PasswordResetDoneView):
 
 class CompleteResetPassword(PasswordResetCompleteView):
     template_name = 'users/password-done-message.html'
+    extra_context = {'message' : 'Password reset success', 'description' : 'Your password has been successfully changed. You can now login to your account with new password.'}
 
     def dispatch(self, *args, **kwargs):
         if self.request.user.is_authenticated:
