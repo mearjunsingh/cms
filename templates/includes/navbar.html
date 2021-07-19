@@ -37,7 +37,11 @@
 
         </ul>
 
+        {% if list_term %}
         <form method="GET" class="d-flex">
+        {% else %}
+        <form method="GET" class="d-flex" action="{% url 'browse_list' %}">
+        {% endif %}
           {{ search_form.search }}
           <button class="btn btn-sm btn-primary" type="submit"><i data-feather="search"></i></button>
         </form>
