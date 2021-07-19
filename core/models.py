@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
+from django.core.mail import send_mail
+from django.conf import settings
 from ckeditor_uploader.fields import RichTextUploadingField
 from posts.models import (
     Category,
@@ -129,3 +131,19 @@ class Homepage(models.Model):
     
     class Meta:
         verbose_name_plural = _('Homepage')
+
+
+class Contact(models.Model):
+    name = models.CharField(_('Name'), max_length=100)
+    email = models.EmailField(_('Email'))
+    phone = models.CharField(_('Phone'), max_length=15, blank=True, null=True)
+    message = models.TextField(_('Message'))
+    created_date = models.DateTimeField(_('Contact Date'), auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    
+    def save(self, *args, **kwargs):
+        txt = f'{self.message}\n\n{self.name}\n{self.email}\n{self.phone}'
+        send_mail('New Contact', txt, from_email=settings.DEFAULT_FROM_EMAIL, recipient_list=[settings.NOTIFICATION_EMAIL], fail_silently=False)
+        return super(Contact, self).save(*args, **kwargs)

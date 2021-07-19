@@ -40,9 +40,27 @@
     <div class="card-body">
         <div style="text-align: justify;">
             <p class="mb-3 lead">
-
+                Please fill out the form below to send us a message.
+                <form method="post" style="max-width: 400px; margin: 0 auto;">
+                    {% csrf_token %}
+                    {% include 'includes/form.html' %}
+                    <button class="mt-2 btn btn-primary" type="submit">Send Message</button>
+                </form>
             </p>
-
+            <hr>
+            <p class="my-3 text-center">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
+                    class="btn btn-sm btn-primary"><i data-feather="facebook"></i><span
+                        class="d-none d-md-inline d-lg-inline"> Share on
+                        Facebook</span></a>
+                <a href="https://twitter.com/intent/tweet?text={{ page.title }}%0ARead%20Here%3A%20{{ request.build_absolute_uri }}"
+                    class="btn btn-sm btn-info text-white"><i data-feather="twitter"></i><span
+                        class="d-none d-md-inline d-lg-inline"> Tweet on
+                        Twitter</span></a>
+                <a href="mailto:?subject={{ page.title }}&body={{ page.excerpt }}%0ARead%20Here%3A%20{{ request.build_absolute_uri }}"
+                    class="btn btn-sm btn-danger"><i data-feather="mail"></i><span
+                        class="d-none d-md-inline d-lg-inline"> Email</span></a>
+            </p>
         </div>
     </div>
 </div>

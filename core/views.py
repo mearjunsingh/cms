@@ -1,6 +1,9 @@
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, CreateView, DetailView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
 from posts.models import Post
-from .models import Page, Homepage
+from .models import Contact, Page, Homepage
+from .forms import ContactForm
 
 
 class HomePage(TemplateView):
@@ -15,6 +18,14 @@ class HomePage(TemplateView):
             context[f'{section.section}_cat'] = section.category
         context['featured_posts'] = posts.filter(is_featured=True)[:3]
         return context
+
+
+class ContactPage(SuccessMessageMixin, CreateView):
+    template_name = 'contact.html'
+    model = Contact
+    form_class = ContactForm
+    success_url = reverse_lazy('contact_page')
+    success_message = "Message sent successfully."
 
 
 class StaticPage(DetailView):

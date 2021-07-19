@@ -9,7 +9,7 @@
 {% for form_field in form %}
 
     <div class="mb-2">
-        {{ form_field.label_tag }}
+        {{ form_field.label_tag }}{% if form_field.field.required %} * {% endif %}
 
         {% if form_field.errors %}
             {% for error in form_field.errors %}

@@ -6,7 +6,8 @@ from .models import (
     FooterMenu,
     Page,
     Ad,
-    Homepage
+    Homepage,
+    Contact
 )
 
 @admin.register(MainMenu, TopMenu, FooterMenu)
@@ -65,3 +66,30 @@ class HomepageAdmin(ModelAdmin):
     list_display = ['section', 'category']
     autocomplete_fields = ['category']
     view_on_site = False
+
+
+@admin.register(Contact)
+class ContactAdmin(ModelAdmin):
+    list_display = ['name', 'email', 'phone']
+    search_fields = ['name', 'email', 'phone']
+    sortable_by = ['name', 'email']
+    list_per_page = 50
+    date_hierarchy = 'created_date'
+    readonly_fields = ['created_date']
+    fieldsets = (
+        (None, {
+            'fields': (
+                'name',
+                'email',
+                'phone',
+                'message',
+                'created_date'
+            )
+        }),
+    )
+
+    def has_change_permission(self, *args, **kwargs):
+        return False
+    
+    def has_delete_permission(self, *args, **kwargs):
+        return False
