@@ -39,12 +39,12 @@
 {% endif %}
 
   <div class="card mb-3 p-3">
-    <p class="text-dark lead fw-bold">All posts
+    <p class="text-dark lead">All posts
       {% if search_term %}
-        matching with: '{{ search_term }}'
+        matching with <span class="fw-bold">{{ search_term }}</span>
       {% endif %}
       {% if list_term %}
-        under {{ list_type }}: '{{ list_term }}'
+        under {{ list_type }} <span class="fw-bold">{{ list_term }}</span>
       {% endif %}
     </p>
     {% include 'includes/post_list.html' %}
