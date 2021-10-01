@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-User = get_user_model()
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from ckeditor_uploader.fields import RichTextUploadingField
 from core.utils import upload_image_path, generate_unique_slug
 
+User = get_user_model()
 
 class Post(models.Model):
     title = models.CharField(_('Post Title'), max_length=150)
