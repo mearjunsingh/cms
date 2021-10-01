@@ -1,6 +1,5 @@
 from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
-User = get_user_model()
 from django.contrib.auth.views import (
     LoginView,
     PasswordChangeView,
@@ -29,6 +28,9 @@ from .forms import (
     ProfileForm,
     ChangePasswordForm
 )
+
+
+User = get_user_model()
 
 
 class RegisterUser(CreateView):
