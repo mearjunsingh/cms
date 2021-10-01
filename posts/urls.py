@@ -1,11 +1,11 @@
 from django.urls import path
 from core.views import HomePage
 from .views import (
-    PostDetail,
+    AuthorList,
     BrowseList,
     CategoryList,
-    TagList,
-    AuthorList
+    PostDetail,
+    TagList
 )
 
 
