@@ -18,7 +18,8 @@ class PostDetail(DetailView):
         context['related_posts'] = Post.objects.filter(is_published=True).filter(author=context['post'].author).exclude(id=context['post'].id).order_by('-modified_date')[:3]
         context['comment_form'] = CommentForm(None)
         if self.request.POST.get('body'):
-            context['comment_msg'] = 'Your comment has been submitted and waiting for a review.'
+            context['comment_msg'] = 'Your comment has been submitted and is being reviewed
+.'
         context['comments'] = Comment.objects.filter(post=context['post']).filter(is_approved=True).order_by('-id')
         return context
     
