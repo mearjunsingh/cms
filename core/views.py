@@ -25,7 +25,7 @@ class ContactPage(SuccessMessageMixin, CreateView):
     model = Contact
     form_class = ContactForm
     success_url = reverse_lazy('contact_page')
-    success_message = "Message sent successfully."
+    success_message = "Message submitted successfully."
 
 
 class StaticPage(DetailView):
