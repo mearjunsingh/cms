@@ -2,13 +2,14 @@ from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import (
     LoginView,
-    PasswordChangeView,
     LogoutView,
-    PasswordResetView,
+    PasswordChangeView,
+    PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
-    PasswordResetCompleteView
+    PasswordResetView,
 )
+
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -17,16 +18,16 @@ from django.urls import reverse_lazy
 from core.utils import get_client_ip
 from posts.models import Comment, Post
 from .forms import (
+    ChangePasswordForm, 
+    CommentFilterForm,
+    CommentForm,
     LoginForm,
+    NewPasswordForm,
+    PostFilterForm,
+    PostForm,
+    ProfileForm,
     RegisterForm,
     ResetPasswordForm,
-    NewPasswordForm,
-    PostForm,
-    PostFilterForm,
-    CommentForm,
-    CommentFilterForm,
-    ProfileForm,
-    ChangePasswordForm
 )
 
 
