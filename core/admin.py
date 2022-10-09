@@ -1,13 +1,15 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from .models import (
+    Ad,
+    Contact,
+    FooterMenu,
+    Homepage,
     MainMenu,
+    Page, 
     TopMenu,
     FooterMenu,
-    Page,
-    Ad,
-    Homepage,
-    Contact
+    Page
 )
 
 @admin.register(MainMenu, TopMenu, FooterMenu)
