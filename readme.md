@@ -74,5 +74,5 @@ Something like WordPress but in python. Batteries included CMS with everything t
 9. Then locate http://127.0.0.1:8000/ in your favorite web browser.
 ---
 
-## Contributing
+## Contributing for project
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
