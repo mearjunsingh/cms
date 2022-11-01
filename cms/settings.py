@@ -121,12 +121,12 @@ USE_TZ = True
 
 home_folder = os.environ.get("STATIC_AND_MEDIA_FILE_FOLDER")
 
-STATIC_URL = "assets/"
-STATIC_ROOT = f"/home/{home_folder}/assets/"
+STATIC_URL = "cms/assets/"
+STATIC_ROOT = f"/home/{home_folder}/cms/assets/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-MEDIA_URL = "media/"
-MEDIA_ROOT = f"/home/{home_folder}/media/"
+MEDIA_URL = "cms/media/"
+MEDIA_ROOT = f"/home/{home_folder}/cms/media/"
 
 
 # Default primary key field type
