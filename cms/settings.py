@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -8,12 +9,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-b^q&hxa#)mz(re$$6&8z(zvtfll70b69$yabw7)#-p^f%)yl84'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ.get("DJANGO_DEBUG", default=0)))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['demo.arjunsingh.com.np', '127.0.0.1']
 
 
 # Application definition
@@ -118,19 +119,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/assets/'
-STATIC_ROOT = 'static_CDN/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
+home_folder = os.environ.get(
+    "STATIC_AND_MEDIA_FILE_FOLDER", default="public_html/default"
+)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = 'uploads/'
+STATIC_URL = "assets/"
+STATIC_ROOT = f"/home/pynotesc/{home_folder}/assets/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = f"/home/pynotesc/{home_folder}/media/"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 # Custom user model
 from django.urls import reverse_lazy
@@ -138,6 +143,7 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = reverse_lazy('user_login')
 LOGIN_REDIRECT_URL = reverse_lazy('user_dashboard')
 LOGOUT_REDIRECT_URL = reverse_lazy('homepage')
+
 
 # Ckeditor configuration
 CKEDITOR_CONFIGS = {
@@ -179,12 +185,16 @@ CKEDITOR_ALLOW_NONIMAGE_FILES = False # Only allow images
 CKEDITOR_THUMBNAIL_SIZE = (300, 300)
 CKEDITOR_FILENAME_GENERATOR = 'core.utils.ckeditor_name_generator'
 
+
 # Email configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = ''
-NOTIFICATION_EMAIL = ''
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = "mail.demo.arjunsingh.com.np"
+EMAIL_PORT = 465
+EMAIL_USE_TLS = 1
+
+EMAIL_HOST_USER = os.environ.get("DJANGO_EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("DJANGO_EMAIL_HOST_PASSWORD")
+
+DEFAULT_FROM_EMAIL = os.environ.get("DJANGO_EMAIL_HOST_USER")
+NOTIFICATION_EMAIL = os.environ.get("DJANGO_EMAIL_HOST_USER")
