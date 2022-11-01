@@ -228,8 +228,8 @@ CKEDITOR_FILENAME_GENERATOR = "core.utils.ckeditor_name_generator"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 EMAIL_HOST = "mail.demo.arjunsingh.com.np"
-EMAIL_PORT = 465
-EMAIL_USE_TLS = 1
+EMAIL_PORT = 587
+EMAIL_USE_TLS = False
 
 EMAIL_HOST_USER = os.environ.get("DJANGO_EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("DJANGO_EMAIL_HOST_PASSWORD")
