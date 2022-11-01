@@ -1,4 +1,4 @@
-# CMS #CMS
+# CMS (Content Management System)
 ![cms](https://arjunsingh.com.np/images/portfolio/cms.png)
 
 Something like WordPress but in python. Batteries included CMS with everything that you may need to host a complete website for blog, news, magazines or anything similar.

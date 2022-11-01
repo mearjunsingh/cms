@@ -2,4 +2,4 @@ __pycache__
 venv
 uploads
 db.sqlite3
-secured.txt
+.env
